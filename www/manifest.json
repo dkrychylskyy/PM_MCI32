@@ -1,0 +1,11 @@
+{
+  "name": "Presentations Manager MCI32",
+  "short_name": "PM MCI32",
+  "start_url": "index.html",
+  "display": "standalone",
+  "icons": [{
+    "src": "icon.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }]
+}

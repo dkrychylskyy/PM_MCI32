@@ -1,0 +1,27 @@
+<ion-view view-title="Reglages images">
+  <ion-content>
+        <div class="list padding-top">
+          <div class="text-center">
+            <button class="button icon-left ion-plus button-balanced" ng-click="addFromPicker()">
+              Ajouter les images
+            </button>
+          </div>
+        </div>
+    <br>
+    <br>
+    <div class="floating">
+      <ion-list>
+        <ion-item ng-repeat="image in images" class="my-gallary">
+          <img ng-src="{{image}}">
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="list padding-top">
+      <div class="text-center">
+        <button class="button icon-left ion-android-delete button-assertive" ng-click="clearData()">
+          Supprimer toutes les images
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

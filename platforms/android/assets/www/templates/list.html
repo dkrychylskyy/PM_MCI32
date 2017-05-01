@@ -1,0 +1,25 @@
+<ion-view view-title="Liste des contacts">
+  <ion-content>
+    <div class="padding">
+      <!--<button class="button button-energized" ng-click="createCSV()">Create CSV</button>-->
+      <!--<a href="#/email" class="button button-positive">E-mail page</a>-->
+      <a href="#/form/" class="button button-block button-positive">
+        <i class="icon ion-android-person-add"></i> Ajouter un contact
+      </a>
+    </div>
+    <div class="card" ng-repeat="item in itemsList">
+      <div class="item item-divider" ng-click="gotoEdit(item.id)">
+        {{item.nom}} {{item.prenom}}
+      </div>
+      <div class="padding">
+        <div class="item item-text-wrap">
+          <p>Code Postale : {{item.codePostale}}</p>
+          <p>Ville : {{item.ville}}</p>
+          <p>E-mail : {{item.email}}</p>
+          <p>Portable : {{item.portable}}</p>
+          <p>Divers : {{item.divers}}</p>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

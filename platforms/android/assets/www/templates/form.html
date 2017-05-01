@@ -1,0 +1,45 @@
+<ion-view view-title="Mes coordonnées">
+  <ion-content>
+      <div class="list">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Nom</span>
+          <input type="text" placeholder="Nom" ng-minlength="2" ng-maxlength="30" name="nom" ng-model="noteForm.nom">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Prenom</span>
+          <input type="text" ng-maxlength="20" placeholder="Prenom"  ng-model="noteForm.prenom">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">E-mail</span>
+          <input type="email"  placeholder="E-mail" ng-model="noteForm.email">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Portable</span>
+          <input type="tel" placeholder="Portable" ng-model="noteForm.portable">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Code Postale</span>
+        <input type="number" ng-maxlength="5" placeholder="Code Postale" ng-model="noteForm.codePostale">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Ville</span>
+          <input type="text" ng-maxlength="20" placeholder="Ville" ng-model="noteForm.ville">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Divers</span>
+          <input type="text" placeholder="Divers" ng-model="noteForm.divers">
+        </label>
+      </div>
+    <button ng-show="!noteForm.id" ui-sref="reglages" class="button button-fab button-fab-bottom-right button-balanced" ng-click="saveNote()"><i
+      class="icon ion-checkmark"></i></button>
+
+    <div ng-show="noteForm.id" class="button-bar">
+      <a class="button button-positive" ng-click="saveNote()">
+        <i class="icon ion-checkmark"></i>
+      </a>
+      <a class="button button-assertive" ng-click="confirmDelete(noteForm.id)">
+        <i class="icon ion-trash-b"></i>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>
