@@ -208,7 +208,7 @@ angular.module('starter.services', ['ngCordova'])
     return {
       saveMediaPicker: function () {
         var options = {
-          maximumImagesCount: 10
+          maximumImagesCount: 1
         };
         $cordovaImagePicker.getPictures(options).then(function (results) {
           for (var i = 0; i < results.length; i++) {
