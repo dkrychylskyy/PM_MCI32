@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-    .controller('ListCtrl', function ($scope, $ionicPlatform, $state, NotesDataService) {
+    .controller('ListCtrl', function ($scope, $ionicPlatform, $state, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function (e) {
             NotesDataService.getAll(function (data) {
                 $scope.itemsList = data
@@ -10,11 +10,25 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.gotoEdit = function (idNote) {
             $state.go('form', {id: idNote})
         }
+
+        $scope.sendContacts = function () {
+            $ionicPlatform.ready(function () {
+                NotesDataService.getAll(function (data) {
+                    ContactsService.createFile(data);
+                })
+                ContactsService.createEmail()
+            })
+        }
+
+        $scope.deleteAllContacts = function () {
+            NotesDataService.deleteAllNotes()
+        }
     })
 
     .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService) {
         $scope.$on('$ionicView.enter', function (e) {
-            initForm()
+
+             initForm();
         })
 
         function initForm() {
@@ -30,8 +44,12 @@ angular.module('starter.controllers', ['ngCordova'])
                     ville: '',
                     email: '',
                     portable: '',
-                    divers: ''
+                    divers: '',
+                    manifest: ''
                 };
+                NotesDataService.getManifest(function (data) {
+                    $scope.noteForm.manifest = data[0].manifest;
+                })
             }
         }
 
@@ -40,7 +58,6 @@ angular.module('starter.controllers', ['ngCordova'])
         }
 
         $scope.saveNote = function () {
-
             if (!$scope.noteForm.id) {
                 NotesDataService.createNote($scope.noteForm).then(onSaveSuccess)
             } else {
@@ -67,6 +84,10 @@ angular.module('starter.controllers', ['ngCordova'])
             $ionicPlatform.ready(function () {
                 $scope.formEmail = NotesDataService.getEmail(function (data) {
                     $scope.currentEmail = data[0].email;
+                });
+                $scope.formManifest = NotesDataService.getManifest(function (data) {
+                    console.log(data);
+                    $scope.currentManifest = data[0].manifest;
                 });
             })
         })
@@ -176,27 +197,24 @@ angular.module('starter.controllers', ['ngCordova'])
                     $state.go('reglages');
 
                 }
+            })
+        })
+    })
 
+    .controller('ParamsManifestCtrl', function ($scope, $state, $stateParams, $ionicPlatform, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+        $scope.$on('$ionicView.enter', function () {
+            $ionicPlatform.ready(function () {
+                $scope.formManifest = NotesDataService.getManifest(function (data) {
+                    $scope.formManifest.text = data[0].manifest;
+                });
 
+                $scope.formManifest = {text: ''};
 
+                $scope.addManifest = function () {
+                    NotesDataService.createManifest($scope.formManifest.text);
+                    console.log($scope.formManifest.text);
+                    $state.go('reglages');
 
-
-
-
-                $scope.sendContacts = function () {
-
-                    var address = $scope.formEmail.address;
-                    var manifest = $scope.formEmail.manifest;
-
-                    if (!address) {
-                        alert('Saisissez une adresse email valide');
-                    } else {
-                        NotesDataService.getAll(function (data) {
-                            ContactsService.createFile(data);
-                        });
-                        ContactsService.createEmail(address, manifest)
-                        $state.go('reglages');
-                    }
                 }
             })
         })

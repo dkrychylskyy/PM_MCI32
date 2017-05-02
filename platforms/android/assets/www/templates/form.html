@@ -29,6 +29,10 @@
           <span class="input-label">Divers</span>
           <input type="text" placeholder="Divers" ng-model="noteForm.divers">
         </label>
+        <label class="item item-input item-floating-label" ng-hide="true">
+          <span class="input-label">manifest</span>
+          <input type="text" placeholder="manifest" ng-model="noteForm.manifest">
+        </label>
       </div>
     <button ng-show="!noteForm.id" ui-sref="reglages" class="button button-fab button-fab-bottom-right button-balanced" ng-click="saveNote()"><i
       class="icon ion-checkmark"></i></button>

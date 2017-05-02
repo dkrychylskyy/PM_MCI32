@@ -53,5 +53,11 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'i
         controller: 'ParamsEmailCtrl'
       })
 
+        .state('manifestParams', {
+            url: '/manifestParams',
+            templateUrl: 'templates/params-manifest.html',
+            controller: 'ParamsManifestCtrl'
+        })
+
     $urlRouterProvider.otherwise('/slider')
   })

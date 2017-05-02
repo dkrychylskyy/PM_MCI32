@@ -31,7 +31,7 @@
 .transbox {
   background-color: #ffffff;
   padding: 20px;
-  opacity: 0.6;
+  /*opacity: 0.6;*/
   position : absolute;
   max-width    : 300px;
   max-height   : 150px;
@@ -39,5 +39,8 @@
   top      : 50%;
   margin-left : -100px; /* half of the width  */
   margin-top  : -100px; /* half of the height */
+}
 
+.transbox button {
+    margin: 2em;
 }

@@ -48,7 +48,7 @@ angular.module('starter.services', ['ngCordova'])
                 return $cordovaSQLite.execute(db, 'INSERT INTO T_CONTACTS (nom, prenom, codePostale, ville, email, portable, divers, manifest) VALUES(?, ?, ?, ?, ? ,?, ?, ?)', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest])
             },
             updateNote: function (note) {
-                return $cordovaSQLite.execute(db, 'UPDATE T_CONTACTS set nom = ?, prenom = ?, codePostale = ?, ville = ?, email = ?, portable = ?, divers = ? where id = ?', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.id])
+                return $cordovaSQLite.execute(db, 'UPDATE T_CONTACTS set nom = ?, prenom = ?, codePostale = ?, ville = ?, email = ?, portable = ?, divers = ?, manifest = ? where id = ?', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.id])
             },
             getAll: function (callback) {
                 $ionicPlatform.ready(function () {
@@ -66,6 +66,10 @@ angular.module('starter.services', ['ngCordova'])
 
             deleteNote: function (id) {
                 return $cordovaSQLite.execute(db, 'DELETE FROM T_CONTACTS where id = ?', [id])
+            },
+
+            deleteAllNotes: function () {
+                return $cordovaSQLite.execute(db, 'DELETE FROM T_CONTACTS')
             },
 
             getById: function (id, callback) {
@@ -116,18 +120,18 @@ angular.module('starter.services', ['ngCordova'])
     .factory('ContactsService', function ($ionicPlatform, $cordovaEmailComposer, $cordovaSQLite, $cordovaFile, NotesDataService) {
 
         //disable for testing in browser
-        // $ionicPlatform.ready(function () {
-        //   initCordovaEmailComposer();
-        // })
-        //
-        // function initCordovaEmailComposer() {
-        //   $cordovaEmailComposer.isAvailable().then(function () {
-        //     //is available
-        //   }, function () {
-        //     //not available
-        //     alert('Il vous faut regler boit mail');
-        //   })
-        // }
+        $ionicPlatform.ready(function () {
+          initCordovaEmailComposer();
+        })
+
+        function initCordovaEmailComposer() {
+          $cordovaEmailComposer.isAvailable().then(function () {
+            //is available
+          }, function () {
+            //not available
+            alert('Il vous faut regler boit mail');
+          })
+        }
 
         return {
 
@@ -208,20 +212,29 @@ angular.module('starter.services', ['ngCordova'])
             },
 
             // createEmail: function (filePath) {
-            createEmail: function (address, manifest) {
-                var email = {
-                    to: address,
-                    attachments: [
-                        cordova.file.externalDataDirectory + "/contacts.csv",
-                    ],
-                    subject: 'Vos contacts pour - ' + manifest,
-                    body: "",
-                    isHtml: true
-                };
+            createEmail: function () {
+
+                NotesDataService.getEmail(function (data) {
+                    var address = data[0].email
+                    NotesDataService.getManifest(function (data) {
+                        var manifest = data[0].manifest
+                        var email = {
+                            to: address,
+                            attachments: [
+                                cordova.file.externalDataDirectory + "/contacts.csv",
+                            ],
+                            subject: 'Vos contacts pour - ' + manifest,
+                            body: "",
+                            isHtml: true
+                        };
 
 
-                $cordovaEmailComposer.open(email).then(null, function () {
-                });
+                        $cordovaEmailComposer.open(email).then(null, function () {
+                        });
+                    })
+
+                })
+
             },
         }
     })

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-    .controller('ListCtrl', function ($scope, $ionicPlatform, $state, NotesDataService) {
+    .controller('ListCtrl', function ($scope, $ionicPlatform, $state, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function (e) {
             NotesDataService.getAll(function (data) {
                 $scope.itemsList = data
@@ -9,6 +9,19 @@ angular.module('starter.controllers', ['ngCordova'])
 
         $scope.gotoEdit = function (idNote) {
             $state.go('form', {id: idNote})
+        }
+
+        $scope.sendContacts = function () {
+            $ionicPlatform.ready(function () {
+                NotesDataService.getAll(function (data) {
+                    ContactsService.createFile(data);
+                })
+                ContactsService.createEmail()
+            })
+        }
+
+        $scope.deleteAllContacts = function () {
+            NotesDataService.deleteAllNotes()
         }
     })
 
@@ -183,28 +196,6 @@ angular.module('starter.controllers', ['ngCordova'])
                     NotesDataService.createEmail($scope.formEmail.address);
                     $state.go('reglages');
 
-                }
-
-
-
-
-
-
-
-                $scope.sendContacts = function () {
-
-                    var address = $scope.formEmail.address;
-                    var manifest = $scope.formEmail.manifest;
-
-                    if (!address) {
-                        alert('Saisissez une adresse email valide');
-                    } else {
-                        NotesDataService.getAll(function (data) {
-                            ContactsService.createFile(data);
-                        });
-                        ContactsService.createEmail(address, manifest)
-                        $state.go('reglages');
-                    }
                 }
             })
         })
