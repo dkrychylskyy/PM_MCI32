@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'ionic-material'])
+angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'ionic-material', 'ui.router'])
 
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {

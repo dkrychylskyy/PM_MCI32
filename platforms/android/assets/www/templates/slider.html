@@ -1,54 +1,38 @@
 <ion-view hide-nav-bar="true">
-  <ion-content>
+    <ion-content>
+        <!--//////////////if no images//////////////////-->
+        <ion-slides options="{pagination: true, paginationClickable:true, speed: 600}" slider="swiper">
 
-    <!--//////////////// swiper slider-->
-    <!--<div class="swiper-container" ng-show="!numberOfSlides < 1">-->
-    <!--<div class="swiper-wrapper">-->
-    <!--<div class="swiper-slide" ng-repeat="image in images">-->
-    <!--<img ng-src="{{image}}"/>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
+            <ion-slide-page ng-show="numberOfSlides < 1" style="background-color: #ffffff">
+                <div class="padding-top">
+                    <div class="padding-top text-center">
+                        <h2 class="padding-top">Aucun image</h2>
+                        <h3>Merci de sélectionner des images</h3>
+                        <button class="button button-raised button-energized-900 padding-bottom" ui-sref="addImages">
+                            Sélectionner
+                        </button>
+                    </div>
+                </div>
+                <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-dark"><i
+                        class="icon ion-ios-gear-outline"></i></button>
 
+            </ion-slide-page>
+            <!--//////////////if images//////////////////-->
+            <ion-slide-page ng-repeat="image in images">
+                <img ng-src="{{image}}"/>
+            </ion-slide-page>
+            <ion-slide-page ng-show="numberOfSlides >= 1" style="background: url({{lastImg}}) center; background-size: cover;">
+                    <div class="transbox">
+                        <div class="text-center">
+                            <h2>Cette présentation vous a plu?</h2>
+                                <button class="button button-raised button-balanced padding-bottom" ui-sref="form">Oui
+                                </button>
+                        </div>
+                    </div>
+                <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-light"><i
+                        class="icon ion-ios-gear-outline"></i></button>
 
-    <!--//////////////if no images//////////////////-->
-    <ion-slides options="sliderOptions" slider="swiper">
-
-      <ion-slide-page ng-show="numberOfSlides < 1" style="background-color: #ffffff">
-        <div class="padding-top">
-          <div class="padding-top text-center">
-            <h2 class="padding-top">Aucun image</h2>
-            <h3>Merci de sélectionner des images</h3>
-            <button class="button button-raised button-energized-900 padding-bottom" ui-sref="addImages">Sélectionner
-            </button>
-          </div>
-        </div>
-        <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-dark"><i
-          class="icon ion-ios-gear-outline"></i></button>
-
-      </ion-slide-page>
-
-      <!--//////////////if images//////////////////-->
-      <ion-slide-page ng-repeat="image in images">
-        <img ng-src="{{image}}"/>
-      </ion-slide-page>
-
-      <ion-slide-page style="background-color: #ffffff" ng-show="numberOfSlides >= 1">
-        <div class="padding-top card-item">
-          <div class="padding-top">
-            <div class="padding-top text-center">
-              <h2>Cette présentation vous a plu?</h2>
-              <div class="padding-top card-item">
-                <button class="button button-raised button-balanced padding-bottom" ui-sref="form">Oui
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-light"><i
-          class="icon ion-ios-gear-outline"></i></button>
-      </ion-slide-page>
-
-    </ion-slides>
-  </ion-content>
+            </ion-slide-page>
+        </ion-slides>
+    </ion-content>
 </ion-view>

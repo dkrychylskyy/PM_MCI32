@@ -104,62 +104,54 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
 
-                ///////// adding images frm imagePicker dirrect//////////////
-                // var images = [];
-                // function getImageTest () {
-                //   return $cordovaImagePicker.getPictures().then(function (results) {
-                //     for (var i = 0; i < results.length; i++) {
-                //       images.push(results[i]);
-                //     }
-                //   })
-                // }
-                // getImageTest();
-
                 var images = FileService.images();
                 $scope.numberOfSlides = images.length;
                 $scope.images = images;
+                $scope.lastImg = images[images.length-1];
                 $scope.$apply();
+                $scope.sliderOptions = {
+                    loop: false,
+                    pagination: true,
+                    initialSlide: 0,
+                    onInit: function (swiper) {
+                        $scope.swiper = swiper;
+                    }
+                }
 
-                ///////// slider swiper///////
+                /////// slider swiper///////
                 // var mySwiper = new Swiper('.swiper-container', {
                 //   initialSlide: 0,
                 //   direction: 'horizontal', //or vertical
                 //   speed: 400, //0.4s transition
-                //   spaceBetween: 0
+                //   spaceBetween: 0,
+                //     preloadImages: false,
+                //     lazyLoading: true,
+                //
                 // });
-
-
-                // mySwiper.appendSlide('<div class="swiper-slide">' +
-                //   '<h3>J\'espère que ça vous plaît.</h3>' +
-                //   '<p>' +
-                //   '<a href="#/form/" class="button button-block button-stable">Oui</a>' +
-                //   '</p>' +
-                //   '</div>');
+                // mySwiper;
                 //////// end slider swiper//////
 
                 ////////slider 2////////
-                // $scope.data = {};
-                // $scope.data.images = images;
-                // $scope.data.sliderOptions = {};
                 // var setupSlider = function () {
                 //     //some options to pass to our slider
-                //     $scope.data.sliderOptions = {
+                //     $scope.sliderOptions = {
                 //         initialSlide: 0,
                 //         direction: 'horizontal', //or vertical
-                //         speed: 400 //0.3s transition
+                //         speed: 400, //0.3s transition
+                //         pagination: false
                 //     };
                 //     $scope.$apply();
                 // };
                 // setupSlider();
-                $scope.sliderOptions = {
-                    effect: 'slide',
-                    paginationHide: true,
-                    initialSlide: 0,
-                    speed: 1000,
-                    onInit: function(swiper){
-                        $scope.swiper = swiper;
-                    }
-                }
+                // $scope.sliderOptions = {
+                //     effect: 'slide',
+                //     paginationHide: true,
+                //     initialSlide: 0,
+                //     speed: 100,
+                //     onInit: function(swiper){
+                //         $scope.swiper = swiper;
+                //     }
+                // }
             })
         })
     })
