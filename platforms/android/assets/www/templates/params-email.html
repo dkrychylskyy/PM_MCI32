@@ -1,17 +1,21 @@
 <ion-view view-title="Paramétrage d'email">
   <ion-content>
-    <div class="list text-center">
+      <div class="list text-center">
       <label class="item item-input item-floating-label">
         <span class="input-label">E-mail</span>
-        <input type="email" placeholder="E-mail" ng-model="formEmail.address">
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Titre Manifest</span>
-        <input type="text"  placeholder="Manifestation" ng-model="formEmail.manifest">
+        <input type="email" placeholder="New e-mail" ng-model="formEmail.address" required="">
       </label>
     </div>
     <div class="text-center">
-      <button class="button button-positive" ng-click="sendContacts()">Envoyer les contacts</button>
+      <button class="button button-positive" ng-click="addEmail()">Ajoute new email</button>
     </div>
   </ion-content>
 </ion-view>
+
+
+
+
+<!--<label class="item item-input item-floating-label">-->
+  <!--<span class="input-label">Titre Manifest</span>-->
+  <!--<input type="text"  placeholder="Manifestation" ng-model="formEmail.manifest">-->
+<!--</label>-->

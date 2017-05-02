@@ -14,7 +14,8 @@ angular.module('starter.controllers', ['ngCordova'])
 
     .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService) {
         $scope.$on('$ionicView.enter', function (e) {
-            initForm()
+
+             initForm();
         })
 
         function initForm() {
@@ -30,8 +31,12 @@ angular.module('starter.controllers', ['ngCordova'])
                     ville: '',
                     email: '',
                     portable: '',
-                    divers: ''
+                    divers: '',
+                    manifest: ''
                 };
+                NotesDataService.getManifest(function (data) {
+                    $scope.noteForm.manifest = data[0].manifest;
+                })
             }
         }
 
@@ -40,7 +45,6 @@ angular.module('starter.controllers', ['ngCordova'])
         }
 
         $scope.saveNote = function () {
-
             if (!$scope.noteForm.id) {
                 NotesDataService.createNote($scope.noteForm).then(onSaveSuccess)
             } else {
@@ -62,8 +66,18 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
-
+    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+        $scope.$on('$ionicView.enter', function () {
+            $ionicPlatform.ready(function () {
+                $scope.formEmail = NotesDataService.getEmail(function (data) {
+                    $scope.currentEmail = data[0].email;
+                });
+                $scope.formManifest = NotesDataService.getManifest(function (data) {
+                    console.log(data);
+                    $scope.currentManifest = data[0].manifest;
+                });
+            })
+        })
         //
         // $scope.crAndSaveCSV = function () {
         //   NotesDataService.getAll(function (data) {
@@ -156,23 +170,62 @@ angular.module('starter.controllers', ['ngCordova'])
         })
     })
 
-    .controller('ParamsEmailCtrl', function ($scope, $state, $stateParams, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
-
-        $scope.formEmail = {address:"", manifest: "" };
-
-        $scope.sendContacts = function () {
-
-            var address = $scope.formEmail.address;
-            var manifest = $scope.formEmail.manifest;
-
-            if (!address) {
-                alert('Saisissez une adresse email valide');
-            } else {
-                NotesDataService.getAll(function (data) {
-                    ContactsService.createFile(data);
+    .controller('ParamsEmailCtrl', function ($scope, $state, $stateParams, $ionicPlatform, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+        $scope.$on('$ionicView.enter', function () {
+            $ionicPlatform.ready(function () {
+                $scope.formEmail = NotesDataService.getEmail(function (data) {
+                    $scope.formEmail.address = data[0].email;
                 });
-                ContactsService.createEmail(address, manifest)
-                $state.go('reglages');
-            }
-        }
+
+                $scope.formEmail = {address: ''};
+
+                $scope.addEmail = function () {
+                    NotesDataService.createEmail($scope.formEmail.address);
+                    $state.go('reglages');
+
+                }
+
+
+
+
+
+
+
+                $scope.sendContacts = function () {
+
+                    var address = $scope.formEmail.address;
+                    var manifest = $scope.formEmail.manifest;
+
+                    if (!address) {
+                        alert('Saisissez une adresse email valide');
+                    } else {
+                        NotesDataService.getAll(function (data) {
+                            ContactsService.createFile(data);
+                        });
+                        ContactsService.createEmail(address, manifest)
+                        $state.go('reglages');
+                    }
+                }
+            })
+        })
     })
+
+    .controller('ParamsManifestCtrl', function ($scope, $state, $stateParams, $ionicPlatform, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+        $scope.$on('$ionicView.enter', function () {
+            $ionicPlatform.ready(function () {
+                $scope.formManifest = NotesDataService.getManifest(function (data) {
+                    $scope.formManifest.text = data[0].manifest;
+                });
+
+                $scope.formManifest = {text: ''};
+
+                $scope.addManifest = function () {
+                    NotesDataService.createManifest($scope.formManifest.text);
+                    console.log($scope.formManifest.text);
+                    $state.go('reglages');
+
+                }
+            })
+        })
+    })
+

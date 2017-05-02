@@ -17,7 +17,15 @@ angular.module('starter.services', ['ngCordova'])
       $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_CONTACTS (id integer primary key, nom, prenom, codePostale, ville, email, portable, divers)')
         .then(function(res){
 
-        }, onErrorQuery)
+        }, onErrorQuery);
+        $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_EMAILS (id integer primary key, email)')
+            .then(function(res){
+
+            }, onErrorQuery);
+        $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_MANIFESTS (id integer primary key, manifest)')
+            .then(function(res){
+
+            }, onErrorQuery)
     }
 
     $ionicPlatform.ready(function () {
@@ -65,23 +73,43 @@ angular.module('starter.services', ['ngCordova'])
             callback(results.rows.item(0))
           })
         })
-      }
+      },
+
+      createEmail : function (email) {
+        console.log(email);
+          return $cordovaSQLite.execute(db, 'INSERT INTO T_EMAILS (email) VALUES (?)', [email]);
+      },
+
+        getEmail: function (callback) {
+            $ionicPlatform.ready(function () {
+                $cordovaSQLite.execute(db, 'SELECT * FROM T_EMAILS WHERE ID = (SELECT MAX(ID) FROM T_EMAILS)').then(function (results) {
+                    var data = []
+
+                    for (i = 0, max = results.rows.length; i < max; i++) {
+                        data.push(results.rows.item(i))
+                    }
+
+                    callback(data)
+                }, onErrorQuery)
+            })
+        }
     }
   })
   .factory('ContactsService',function ($ionicPlatform, $cordovaEmailComposer, $cordovaSQLite, $cordovaFile, NotesDataService) {
 
-  $ionicPlatform.ready(function () {
-    initCordovaEmailComposer();
-  })
-
-  function initCordovaEmailComposer() {
-    $cordovaEmailComposer.isAvailable().then(function () {
-      //is available
-    }, function () {
-      //not available
-      alert('Il vous faut regler boit mail');
-    })
-  }
+      //disable for testing in browser
+  // $ionicPlatform.ready(function () {
+  //   initCordovaEmailComposer();
+  // })
+  //
+  // function initCordovaEmailComposer() {
+  //   $cordovaEmailComposer.isAvailable().then(function () {
+  //     //is available
+  //   }, function () {
+  //     //not available
+  //     alert('Il vous faut regler boit mail');
+  //   })
+  // }
 
   return {
 

@@ -62,8 +62,14 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
-
+    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+        $scope.$on('$ionicView.enter', function () {
+            $ionicPlatform.ready(function () {
+                $scope.formEmail = NotesDataService.getEmail(function (data) {
+                    $scope.currentEmail = data[0].email;
+                });
+            })
+        })
         //
         // $scope.crAndSaveCSV = function () {
         //   NotesDataService.getAll(function (data) {
@@ -156,23 +162,43 @@ angular.module('starter.controllers', ['ngCordova'])
         })
     })
 
-    .controller('ParamsEmailCtrl', function ($scope, $state, $stateParams, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
-
-        $scope.formEmail = {address:"", manifest: "" };
-
-        $scope.sendContacts = function () {
-
-            var address = $scope.formEmail.address;
-            var manifest = $scope.formEmail.manifest;
-
-            if (!address) {
-                alert('Saisissez une adresse email valide');
-            } else {
-                NotesDataService.getAll(function (data) {
-                    ContactsService.createFile(data);
+    .controller('ParamsEmailCtrl', function ($scope, $state, $stateParams, $ionicPlatform, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+        $scope.$on('$ionicView.enter', function () {
+            $ionicPlatform.ready(function () {
+                $scope.formEmail = NotesDataService.getEmail(function (data) {
+                    $scope.formEmail.address = data[0].email;
                 });
-                ContactsService.createEmail(address, manifest)
-                $state.go('reglages');
-            }
-        }
+
+                $scope.formEmail = {address: ''};
+
+                $scope.addEmail = function () {
+                    NotesDataService.createEmail($scope.formEmail.address);
+                    $state.go('reglages');
+
+                }
+
+
+
+
+
+
+
+                $scope.sendContacts = function () {
+
+                    var address = $scope.formEmail.address;
+                    var manifest = $scope.formEmail.manifest;
+
+                    if (!address) {
+                        alert('Saisissez une adresse email valide');
+                    } else {
+                        NotesDataService.getAll(function (data) {
+                            ContactsService.createFile(data);
+                        });
+                        ContactsService.createEmail(address, manifest)
+                        $state.go('reglages');
+                    }
+                }
+            })
+        })
     })
+
