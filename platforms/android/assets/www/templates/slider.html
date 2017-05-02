@@ -12,7 +12,8 @@
 
 
     <!--//////////////if no images//////////////////-->
-    <ion-slides options="data.sliderOptions">
+    <ion-slides options="sliderOptions" slider="swiper">
+
       <ion-slide-page ng-show="numberOfSlides < 1" style="background-color: #ffffff">
         <div class="padding-top">
           <div class="padding-top text-center">
@@ -28,11 +29,11 @@
       </ion-slide-page>
 
       <!--//////////////if images//////////////////-->
-      <ion-slide-page ng-repeat="image in data.images">
+      <ion-slide-page ng-repeat="image in images">
         <img ng-src="{{image}}"/>
       </ion-slide-page>
 
-      <ion-slide-page style="background-color: #ffffff" ng-show="numberOfSlides > 1">
+      <ion-slide-page style="background-color: #ffffff" ng-show="numberOfSlides >= 1">
         <div class="padding-top card-item">
           <div class="padding-top">
             <div class="padding-top text-center">
@@ -47,6 +48,7 @@
         <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-light"><i
           class="icon ion-ios-gear-outline"></i></button>
       </ion-slide-page>
+
     </ion-slides>
   </ion-content>
 </ion-view>

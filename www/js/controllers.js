@@ -138,18 +138,28 @@ angular.module('starter.controllers', ['ngCordova'])
                 //////// end slider swiper//////
 
                 ////////slider 2////////
-                $scope.data = {};
-                $scope.data.images = images;
-                var setupSlider = function () {
-                    //some options to pass to our slider
-                    $scope.data.sliderOptions = {
-                        initialSlide: 0,
-                        direction: 'horizontal', //or vertical
-                        speed: 400 //0.3s transition
-                    };
-                    $scope.$apply();
-                };
-                setupSlider();
+                // $scope.data = {};
+                // $scope.data.images = images;
+                // $scope.data.sliderOptions = {};
+                // var setupSlider = function () {
+                //     //some options to pass to our slider
+                //     $scope.data.sliderOptions = {
+                //         initialSlide: 0,
+                //         direction: 'horizontal', //or vertical
+                //         speed: 400 //0.3s transition
+                //     };
+                //     $scope.$apply();
+                // };
+                // setupSlider();
+                $scope.sliderOptions = {
+                    effect: 'slide',
+                    paginationHide: true,
+                    initialSlide: 0,
+                    speed: 1000,
+                    onInit: function(swiper){
+                        $scope.swiper = swiper;
+                    }
+                }
             })
         })
     })
@@ -170,6 +180,7 @@ angular.module('starter.controllers', ['ngCordova'])
                     ContactsService.createFile(data);
                 });
                 ContactsService.createEmail(address, manifest)
+                $state.go('reglages');
             }
         }
     })
