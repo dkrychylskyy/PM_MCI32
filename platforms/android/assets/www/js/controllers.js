@@ -1,9 +1,13 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-    .controller('ListCtrl', function ($scope, $ionicPlatform, $state, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('ListCtrl', function ($scope, $ionicPlatform, $timeout, $state, NotesDataService, $cordovaFile, $ionicPopup, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function (e) {
             NotesDataService.getAll(function (data) {
+                $scope.disabledButton = false;
                 $scope.itemsList = data
+                if(data.length == 0){
+                    $scope.disabledButton = true;
+                }
             })
         })
 
@@ -21,7 +25,21 @@ angular.module('starter.controllers', ['ngCordova'])
         }
 
         $scope.deleteAllContacts = function () {
-            NotesDataService.deleteAllNotes()
+            var confirmPopup = $ionicPopup.confirm({
+                title: 'Supprimer toutes les contacts',
+                template: 'êtes vous sûr de vouloir supprimer ?'
+            });
+            // to activate ink on modal
+            $timeout(function() {
+                ionicMaterialInk.displayEffect();
+            }, 0);
+
+            confirmPopup.then(function (res) {
+                if (res) {
+                    NotesDataService.deleteAllNotes().then($state.reload('list'))
+                    $scope.disabledButton = true;
+                }
+            })
         }
     })
 
@@ -137,9 +155,6 @@ angular.module('starter.controllers', ['ngCordova'])
                 $scope.lastImg = images[images.length-1];
                 $scope.$apply();
                 $scope.sliderOptions = {
-                    loop: false,
-                    pagination: true,
-                    initialSlide: 0,
                     onInit: function (swiper) {
                         $scope.swiper = swiper;
                     }

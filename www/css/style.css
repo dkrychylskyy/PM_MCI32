@@ -4,6 +4,9 @@
 
 }
 
+
+/*///////////SLIDER//////////*/
+
 .swiper-container {
   width: 100%;
   height: 100%;
@@ -14,6 +17,31 @@
   background: #000;
 }
 
+.swiper-pagination-bullet-active {
+    background-color: #E65100 !important;
+}
+
+.transbox {
+    background-color: #ffffff;
+    padding: 20px;
+    /*opacity: 0.6;*/
+    position : absolute;
+    max-width    : 300px;
+    max-height   : 150px;
+    left     : 50%;
+    top      : 50%;
+    margin-left : -100px; /* half of the width  */
+    margin-top  : -100px; /* half of the height */
+}
+
+.transbox button {
+    margin: 2em;
+}
+
+/*///////////END SLIDER//////////*/
+
+
+/*///////////GALLARY//////////*/
 .my-gallary {
   max-width: 200px;
   max-height: 150px;
@@ -28,19 +56,4 @@
   max-height: 150px;
 }
 
-.transbox {
-  background-color: #ffffff;
-  padding: 20px;
-  /*opacity: 0.6;*/
-  position : absolute;
-  max-width    : 300px;
-  max-height   : 150px;
-  left     : 50%;
-  top      : 50%;
-  margin-left : -100px; /* half of the width  */
-  margin-top  : -100px; /* half of the height */
-}
-
-.transbox button {
-    margin: 2em;
-}
+/*///////////END GALLARY//////////*/

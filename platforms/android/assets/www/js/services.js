@@ -81,7 +81,6 @@ angular.module('starter.services', ['ngCordova'])
             },
 
             createEmail: function (email) {
-                console.log(email);
                 return $cordovaSQLite.execute(db, 'INSERT INTO T_EMAILS (email) VALUES (?)', [email]);
             },
 
@@ -120,18 +119,18 @@ angular.module('starter.services', ['ngCordova'])
     .factory('ContactsService', function ($ionicPlatform, $cordovaEmailComposer, $cordovaSQLite, $cordovaFile, NotesDataService) {
 
         //disable for testing in browser
-        $ionicPlatform.ready(function () {
-          initCordovaEmailComposer();
-        })
-
-        function initCordovaEmailComposer() {
-          $cordovaEmailComposer.isAvailable().then(function () {
-            //is available
-          }, function () {
-            //not available
-            alert('Il vous faut regler boit mail');
-          })
-        }
+        // $ionicPlatform.ready(function () {
+        //   initCordovaEmailComposer();
+        // })
+        //
+        // function initCordovaEmailComposer() {
+        //   $cordovaEmailComposer.isAvailable().then(function () {
+        //     //is available
+        //   }, function () {
+        //     //not available
+        //     alert('Il vous faut regler boit mail');
+        //   })
+        // }
 
         return {
 

@@ -3,7 +3,7 @@
     <div class="button-bar padding-top">
       <a class="button button-balanced" href="#/form/">Ajouter un contact</a>
       <a class="button button-positive" ng-click="sendContacts()">Envoyer par mail</a>
-      <a class="button button-assertive">Supprimer toutes les contacts</a>
+      <a class="button button-assertive" ng-disabled="disabledButton" ng-click="deleteAllContacts()">Supprimer toutes les contacts</a>
     </div>
 
     <div class="card" ng-repeat="item in itemsList" ng-click="gotoEdit(item.id)">
