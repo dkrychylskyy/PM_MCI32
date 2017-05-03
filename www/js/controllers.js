@@ -17,7 +17,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
         $scope.sendContacts = function () {
             $ionicPlatform.ready(function () {
-                NotesDataService.getAll(function (data) {
+                NotesDataService.getContactsForCSV(function (data) {
                     ContactsService.createFile(data);
                 })
                 ContactsService.createEmail()
@@ -43,7 +43,7 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService) {
+    .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService, PopupService) {
         $scope.$on('$ionicView.enter', function (e) {
 
              initForm();
@@ -72,7 +72,8 @@ angular.module('starter.controllers', ['ngCordova'])
         }
 
         function onSaveSuccess() {
-            $state.go('slider')
+            // $state.go('slider')
+            PopupService.popUp()
         }
 
         $scope.saveNote = function () {
@@ -104,27 +105,14 @@ angular.module('starter.controllers', ['ngCordova'])
                     $scope.currentEmail = data[0].email;
                 });
                 $scope.formManifest = NotesDataService.getManifest(function (data) {
-                    console.log(data);
                     $scope.currentManifest = data[0].manifest;
                 });
+                 NotesDataService.getAll(function (data) {
+                     $scope.numberOfContacts = data.length
+                })
+
             })
         })
-        //
-        // $scope.crAndSaveCSV = function () {
-        //   NotesDataService.getAll(function (data) {
-        //     ContactsService.createFile(data);
-        //   });
-        // }
-        //
-        // $scope.sendEmail = function () {
-        //   ContactsService.createEmail()
-        // }
-        //
-        // $scope.getImageSaveContact = function () {
-        //   ImagesManagerService.getImages(function (data) {
-        //     $scope.imgList = data;
-        //   });
-        // }
         ionicMaterialInk.displayEffect();
     })
 
@@ -148,53 +136,17 @@ angular.module('starter.controllers', ['ngCordova'])
     .controller('SliderCtrl', function ($scope, $cordovaDevice, $stateParams, $state, $ionicPlatform, $cordovaImagePicker, AddImageFromPicker, FileService, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
-
-                var images = FileService.images();
-                $scope.numberOfSlides = images.length;
-                $scope.images = images;
-                $scope.lastImg = images[images.length-1];
-                $scope.$apply();
-                $scope.sliderOptions = {
-                    onInit: function (swiper) {
-                        $scope.swiper = swiper;
+                    var images = FileService.images();
+                    $scope.numberOfSlides = images.length;
+                    $scope.images = images;
+                    $scope.lastImg = images[images.length-1];
+                    $scope.$apply();
+                    $scope.sliderOptions = {
+                        onInit: function (swiper) {
+                            $scope.swiper = swiper;
+                        }
                     }
-                }
-
-                /////// slider swiper///////
-                // var mySwiper = new Swiper('.swiper-container', {
-                //   initialSlide: 0,
-                //   direction: 'horizontal', //or vertical
-                //   speed: 400, //0.4s transition
-                //   spaceBetween: 0,
-                //     preloadImages: false,
-                //     lazyLoading: true,
-                //
-                // });
-                // mySwiper;
-                //////// end slider swiper//////
-
-                ////////slider 2////////
-                // var setupSlider = function () {
-                //     //some options to pass to our slider
-                //     $scope.sliderOptions = {
-                //         initialSlide: 0,
-                //         direction: 'horizontal', //or vertical
-                //         speed: 400, //0.3s transition
-                //         pagination: false
-                //     };
-                //     $scope.$apply();
-                // };
-                // setupSlider();
-                // $scope.sliderOptions = {
-                //     effect: 'slide',
-                //     paginationHide: true,
-                //     initialSlide: 0,
-                //     speed: 100,
-                //     onInit: function(swiper){
-                //         $scope.swiper = swiper;
-                //     }
-                // }
-            })
+                })
         })
     })
 

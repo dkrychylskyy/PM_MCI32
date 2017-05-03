@@ -1,7 +1,8 @@
 <ion-view hide-nav-bar="true">
     <ion-content>
         <!--//////////////if no images//////////////////-->
-        <ion-slides options="{paginationClickable:true, speed: 600, initialSlide: 0}" slider="swiper" style="background-color:#262626">
+        <ion-slides options="{paginationClickable:true, speed: 600, initialSlide: 0, zoom: true}" slider="swiper"
+                    style="background-color:#262626">
 
             <ion-slide-page ng-show="numberOfSlides < 1" style="background-color: #ffffff">
                 <div class="padding-top">
@@ -24,13 +25,13 @@
             <ion-slide-page ng-show="numberOfSlides >= 1">
                 <img ng-src="{{lastImg}}" alt="test" style="width: 100%; height: auto">
                 <div class="transbox">
-                        <div class="text-center">
-                            <h2>Cette présentation vous a plu?</h2>
-                                <button class="button button-raised button-balanced padding-bottom" ui-sref="form">Oui
-                                </button>
-                        </div>
+                    <div class="text-center">
+                        <h2>Cette présentation vous a plu?</h2>
+                        <button class="button button-raised button-balanced padding-bottom" ui-sref="form">Oui
+                        </button>
                     </div>
-                <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-light"><i
+                </div>
+                <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-light" style="opacity: 0.2"><i
                         class="icon ion-ios-gear-outline"></i></button>
             </ion-slide-page>
         </ion-slides>

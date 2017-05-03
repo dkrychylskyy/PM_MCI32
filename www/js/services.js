@@ -64,6 +64,21 @@ angular.module('starter.services', ['ngCordova'])
                 })
             },
 
+            getContactsForCSV: function (callback) {
+                $ionicPlatform.ready(function () {
+                    $cordovaSQLite.execute(db, 'SELECT manifest, nom, prenom, email, portable, ville, codePostale, divers ' +
+                        'FROM T_CONTACTS ORDER BY manifest ASC ').then(function (results) {
+                        var data = []
+
+                        for (i = 0, max = results.rows.length; i < max; i++) {
+                            data.push(results.rows.item(i))
+                        }
+
+                        callback(data)
+                    }, onErrorQuery)
+                })
+            },
+
             deleteNote: function (id) {
                 return $cordovaSQLite.execute(db, 'DELETE FROM T_CONTACTS where id = ?', [id])
             },
@@ -275,4 +290,19 @@ angular.module('starter.services', ['ngCordova'])
                 });
             }
         }
-    });
+    })
+    .factory('PopupService', function ($ionicPopup, $state) {
+        return {
+            popUp: function () {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Merci de votre confiance'
+                })
+                alertPopup.then(function (res) {
+                    if (res) {
+                        $state.go('slider')
+                    }
+                })
+            }
+        }
+
+    })
