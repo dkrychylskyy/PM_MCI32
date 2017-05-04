@@ -1,11 +1,9 @@
-/* Empty. Add your own CSS if you like */
 .body {
   background-color: #4d4d4d;
 
 }
 
-
-/*///////////SLIDER//////////*/
+/*SLIDER*/
 
 .swiper-container {
   width: 100%;
@@ -38,10 +36,10 @@
     margin: 2em;
 }
 
-/*///////////END SLIDER//////////*/
+/*END SLIDER*/
 
 
-/*///////////GALLARY//////////*/
+/*GALLARY*/
 .my-gallary {
   max-width: 200px;
   max-height: 150px;
@@ -56,4 +54,28 @@
   max-height: 150px;
 }
 
-/*///////////END GALLARY//////////*/
+/*END GALLARY*/
+
+/*POPUP*/
+
+.popup-container .popup {
+    width: 300px;
+}
+
+.popupConfirmAttention .popup .popup-head {
+    background-color: #F44336;
+}
+
+.popupConfirmAttention .popup .popup-head .popup-title {
+    color: #FFFFFF;
+}
+
+/*.end popup*/
+
+/*icon*/
+
+.mci-icon:before {
+    font-size: 32px !important;
+}
+
+/*.end icon*/

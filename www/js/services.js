@@ -133,7 +133,7 @@ angular.module('starter.services', ['ngCordova'])
     })
     .factory('ContactsService', function ($ionicPlatform, $cordovaEmailComposer, $cordovaSQLite, $cordovaFile, NotesDataService) {
 
-        //disable for testing in browser
+        // disable for testing in browser
         // $ionicPlatform.ready(function () {
         //   initCordovaEmailComposer();
         // })
@@ -230,14 +230,14 @@ angular.module('starter.services', ['ngCordova'])
 
                 NotesDataService.getEmail(function (data) {
                     var address = data[0].email
-                    NotesDataService.getManifest(function (data) {
-                        var manifest = data[0].manifest
+                    // NotesDataService.getManifest(function (data) {
+                    //     var manifest = data[0].manifest
                         var email = {
                             to: address,
                             attachments: [
                                 cordova.file.externalDataDirectory + "/contacts.csv",
                             ],
-                            subject: 'Vos contacts pour - ' + manifest,
+                            subject: 'Vos contacts Presentation Manager',
                             body: "",
                             isHtml: true
                         };
@@ -247,7 +247,7 @@ angular.module('starter.services', ['ngCordova'])
                         });
                     })
 
-                })
+                // })
 
             },
         }
@@ -290,19 +290,4 @@ angular.module('starter.services', ['ngCordova'])
                 });
             }
         }
-    })
-    .factory('PopupService', function ($ionicPopup, $state) {
-        return {
-            popUp: function () {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Merci de votre confiance'
-                })
-                alertPopup.then(function (res) {
-                    if (res) {
-                        $state.go('slider')
-                    }
-                })
-            }
-        }
-
     })

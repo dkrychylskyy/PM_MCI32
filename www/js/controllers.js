@@ -5,7 +5,7 @@ angular.module('starter.controllers', ['ngCordova'])
             NotesDataService.getAll(function (data) {
                 $scope.disabledButton = false;
                 $scope.itemsList = data
-                if(data.length == 0){
+                if (data.length == 0) {
                     $scope.disabledButton = true;
                 }
             })
@@ -26,11 +26,16 @@ angular.module('starter.controllers', ['ngCordova'])
 
         $scope.deleteAllContacts = function () {
             var confirmPopup = $ionicPopup.confirm({
-                title: 'Supprimer toutes les contacts',
-                template: 'êtes vous sûr de vouloir supprimer ?'
+                cssClass: 'popupConfirmAttention',
+                title: 'ATTENTION!!!',
+                okType: 'button-assertive',
+                cancelText: 'Annuler',
+                cancelType: 'button-balanced',
+                template: '<h4 class="text-center">êtes vous sûr de vouloir supprimer toutes les contacts?</h4>',
+                okText: 'Oui'
             });
             // to activate ink on modal
-            $timeout(function() {
+            $timeout(function () {
                 ionicMaterialInk.displayEffect();
             }, 0);
 
@@ -43,10 +48,10 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService, PopupService) {
+    .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService) {
         $scope.$on('$ionicView.enter', function (e) {
 
-             initForm();
+            initForm();
         })
 
         function initForm() {
@@ -72,8 +77,17 @@ angular.module('starter.controllers', ['ngCordova'])
         }
 
         function onSaveSuccess() {
-            // $state.go('slider')
-            PopupService.popUp()
+            $state.go('slider');
+            var alertPopup = $ionicPopup.alert({
+                title: '<h3>Merci de votre confiance</h3>',
+                okType: 'button-balanced'
+
+            })
+            alertPopup.then(function (res) {
+                if (res) {
+                    $state.go('slider');
+                }
+            })
         }
 
         $scope.saveNote = function () {
@@ -86,8 +100,12 @@ angular.module('starter.controllers', ['ngCordova'])
 
         $scope.confirmDelete = function (idNote) {
             var confirmPopup = $ionicPopup.confirm({
-                title: 'Supprimer une note',
-                template: 'êtes vous sûr de vouloir supprimer ?'
+                title: 'ATTENTION!!!',
+                template: '<h4 class="text-center">êtes vous sûr de vouloir supprimer la note ?</h4>',
+                cssClass: 'popupConfirmAttention',
+                okType: 'button-assertive',
+                cancelText: 'Annuler',
+                cancelType: 'button-balanced'
             })
 
             confirmPopup.then(function (res) {
@@ -98,7 +116,7 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup,ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 $scope.formEmail = NotesDataService.getEmail(function (data) {
@@ -107,13 +125,26 @@ angular.module('starter.controllers', ['ngCordova'])
                 $scope.formManifest = NotesDataService.getManifest(function (data) {
                     $scope.currentManifest = data[0].manifest;
                 });
-                 NotesDataService.getAll(function (data) {
-                     $scope.numberOfContacts = data.length
+                NotesDataService.getAll(function (data) {
+                    $scope.numberOfContacts = data.length
                 })
 
             })
         })
         ionicMaterialInk.displayEffect();
+        $scope.testClick = function () {
+            var alertPopup = $ionicPopup.confirm({
+                cssClass: 'popupConfirmAttention',
+                title: 'ATTENTION!!!',
+                template: '',
+                okType: 'button-assertive',
+                cancelText: 'Annuler',
+                cancelType: 'button-balanced'
+            })
+            alertPopup.then(function (res) {
+
+            })
+        }
     })
 
     .controller('AddImagesCtrl', function ($scope, $cordovaDevice, $stateParams, $cordovaImagePicker, $cordovaFile, $ionicPlatform, AddImageFromPicker, FileService) {
@@ -136,18 +167,19 @@ angular.module('starter.controllers', ['ngCordova'])
     .controller('SliderCtrl', function ($scope, $cordovaDevice, $stateParams, $state, $ionicPlatform, $cordovaImagePicker, AddImageFromPicker, FileService, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
-                    var images = FileService.images();
-                    $scope.numberOfSlides = images.length;
-                    $scope.images = images;
-                    $scope.lastImg = images[images.length-1];
-                    $scope.$apply();
-                    $scope.sliderOptions = {
-                        onInit: function (swiper) {
-                            $scope.swiper = swiper;
-                        }
+                var images = FileService.images();
+                $scope.numberOfSlides = images.length;
+                $scope.images = images;
+                $scope.lastImg = images[images.length - 1];
+                $scope.$apply();
+                $scope.sliderOptions = {
+                    onInit: function (swiper) {
+                        $scope.swiper = swiper;
                     }
-                })
+                }
+            })
         })
+        ionicMaterialInk.displayEffect();
     })
 
     .controller('ParamsEmailCtrl', function ($scope, $state, $stateParams, $ionicPlatform, NotesDataService, $cordovaFile, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
@@ -186,4 +218,3 @@ angular.module('starter.controllers', ['ngCordova'])
             })
         })
     })
-

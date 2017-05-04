@@ -59,5 +59,7 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'i
             controller: 'ParamsManifestCtrl'
         })
 
-    $urlRouterProvider.otherwise('/slider')
+
+
+      $urlRouterProvider.otherwise('/slider')
   })
