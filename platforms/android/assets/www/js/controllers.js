@@ -133,17 +133,14 @@ angular.module('starter.controllers', ['ngCordova'])
         })
         ionicMaterialInk.displayEffect();
         $scope.testClick = function () {
-            var alertPopup = $ionicPopup.confirm({
-                cssClass: 'popupConfirmAttention',
-                title: 'ATTENTION!!!',
-                template: '',
-                okType: 'button-assertive',
-                cancelText: 'Annuler',
-                cancelType: 'button-balanced'
-            })
-            alertPopup.then(function (res) {
-
-            })
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth();
+            var day = date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            // $scope.currentDate = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes ;
+            $scope.currentDate = new Date().toISOString() ;
         }
     })
 

@@ -14,7 +14,7 @@ angular.module('starter.services', ['ngCordova'])
         }
 
         function initDatabase() {
-            $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_CONTACTS (id integer primary key, nom, prenom, codePostale, ville, email, portable, divers, manifest)')
+            $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_CONTACTS (id integer primary key, nom, prenom, codePostale, ville, email, portable, divers, manifest, createdDate DATATIME)')
                 .then(function (res) {
 
                 }, onErrorQuery);
@@ -45,7 +45,7 @@ angular.module('starter.services', ['ngCordova'])
         return {
             createNote: function (note) {
                 var manifest = "";
-                return $cordovaSQLite.execute(db, 'INSERT INTO T_CONTACTS (nom, prenom, codePostale, ville, email, portable, divers, manifest) VALUES(?, ?, ?, ?, ? ,?, ?, ?)', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest])
+                return $cordovaSQLite.execute(db, 'INSERT INTO T_CONTACTS (nom, prenom, codePostale, ville, email, portable, divers, manifest, createdDate) VALUES(?, ?, ?, ?, ? ,?, ?, ?, datetime("now", "localtime"))', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest])
             },
             updateNote: function (note) {
                 return $cordovaSQLite.execute(db, 'UPDATE T_CONTACTS set nom = ?, prenom = ?, codePostale = ?, ville = ?, email = ?, portable = ?, divers = ?, manifest = ? where id = ?', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.id])
@@ -66,8 +66,8 @@ angular.module('starter.services', ['ngCordova'])
 
             getContactsForCSV: function (callback) {
                 $ionicPlatform.ready(function () {
-                    $cordovaSQLite.execute(db, 'SELECT manifest, nom, prenom, email, portable, ville, codePostale, divers ' +
-                        'FROM T_CONTACTS ORDER BY manifest ASC ').then(function (results) {
+                    $cordovaSQLite.execute(db, 'SELECT manifest, createdDate, nom, prenom, email, portable, ville, codePostale, divers ' +
+                        'FROM T_CONTACTS ORDER BY createdDate DESC, manifest ASC  ').then(function (results) {
                         var data = []
 
                         for (i = 0, max = results.rows.length; i < max; i++) {

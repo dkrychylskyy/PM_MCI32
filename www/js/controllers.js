@@ -133,17 +133,6 @@ angular.module('starter.controllers', ['ngCordova'])
         })
         ionicMaterialInk.displayEffect();
         $scope.testClick = function () {
-            var alertPopup = $ionicPopup.confirm({
-                cssClass: 'popupConfirmAttention',
-                title: 'ATTENTION!!!',
-                template: '',
-                okType: 'button-assertive',
-                cancelText: 'Annuler',
-                cancelType: 'button-balanced'
-            })
-            alertPopup.then(function (res) {
-
-            })
         }
     })
 
