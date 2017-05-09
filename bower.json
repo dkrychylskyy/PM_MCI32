@@ -6,7 +6,6 @@
   },
   "dependencies": {
     "ngCordova": "^0.1.27-alpha",
-    "angular-moment-picker": "moment-picker#^0.9.11",
     "moment": "^2.18.1"
   }
 }
