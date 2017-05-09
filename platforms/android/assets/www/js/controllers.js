@@ -133,14 +133,6 @@ angular.module('starter.controllers', ['ngCordova'])
         })
         ionicMaterialInk.displayEffect();
         $scope.testClick = function () {
-            var date = new Date();
-            var year = date.getFullYear();
-            var month = date.getMonth();
-            var day = date.getDate();
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            // $scope.currentDate = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes ;
-            $scope.currentDate = new Date().toISOString() ;
         }
     })
 
@@ -169,6 +161,7 @@ angular.module('starter.controllers', ['ngCordova'])
                 $scope.images = images;
                 $scope.lastImg = images[images.length - 1];
                 $scope.$apply();
+                console.log($scope);
                 $scope.sliderOptions = {
                     onInit: function (swiper) {
                         $scope.swiper = swiper;

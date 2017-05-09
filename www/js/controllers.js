@@ -161,6 +161,7 @@ angular.module('starter.controllers', ['ngCordova'])
                 $scope.images = images;
                 $scope.lastImg = images[images.length - 1];
                 $scope.$apply();
+                console.log($scope);
                 $scope.sliderOptions = {
                     onInit: function (swiper) {
                         $scope.swiper = swiper;

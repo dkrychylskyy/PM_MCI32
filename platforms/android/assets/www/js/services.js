@@ -66,8 +66,8 @@ angular.module('starter.services', ['ngCordova'])
 
             getContactsForCSV: function (callback) {
                 $ionicPlatform.ready(function () {
-                    $cordovaSQLite.execute(db, 'SELECT manifest, createdDate, nom, prenom, email, portable, ville, codePostale, divers ' +
-                        'FROM T_CONTACTS ORDER BY createdDate DESC, manifest ASC  ').then(function (results) {
+                    $cordovaSQLite.execute(db, 'SELECT manifest AS manifestation, createdDate AS creation, nom, prenom, email, portable, ville, codePostale AS code_postal, divers ' +
+                        'FROM T_CONTACTS ORDER BY createdDate DESC, manifest ASC').then(function (results) {
                         var data = []
 
                         for (i = 0, max = results.rows.length; i < max; i++) {
@@ -134,18 +134,19 @@ angular.module('starter.services', ['ngCordova'])
     .factory('ContactsService', function ($ionicPlatform, $cordovaEmailComposer, $cordovaSQLite, $cordovaFile, NotesDataService) {
 
         // disable for testing in browser
-        // $ionicPlatform.ready(function () {
-        //   initCordovaEmailComposer();
-        // })
-        //
-        // function initCordovaEmailComposer() {
-        //   $cordovaEmailComposer.isAvailable().then(function () {
-        //     //is available
-        //   }, function () {
-        //     //not available
-        //     alert('Il vous faut regler boit mail');
-        //   })
-        // }
+
+        $ionicPlatform.ready(function () {
+          initCordovaEmailComposer();
+        })
+
+        function initCordovaEmailComposer() {
+          $cordovaEmailComposer.isAvailable().then(function () {
+            //is available
+          }, function () {
+            //not available
+            alert('Il vous faut regler boit mail');
+          })
+        }
 
         return {
 

@@ -3,7 +3,6 @@
         <!--//////////////if no images//////////////////-->
         <ion-slides options="{paginationClickable:true, speed: 600, initialSlide: 0}" slider="swiper"
                     style="background-color:#262626">
-
             <ion-slide-page ng-show="numberOfSlides < 1" style="background-color: #ffffff">
                 <div class="padding-top">
                     <div class="padding-top text-center">
@@ -16,7 +15,6 @@
                 </div>
                 <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-dark"><i
                         class="icon ion-ios-gear-outline"></i></button>
-
             </ion-slide-page>
             <!--//////////////if images//////////////////-->
             <ion-slide-page ng-repeat="image in images">
