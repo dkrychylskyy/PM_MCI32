@@ -29,19 +29,19 @@
             "PACKAGE_NAME": "com.ionicframework.starter"
         },
         "cordova-plugin-email-composer": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "cordova-plugin-file": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "cordova-plugin-image-picker": {
             "PHOTO_LIBRARY_USAGE_DESCRIPTION": " ",
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         }
     }
 }

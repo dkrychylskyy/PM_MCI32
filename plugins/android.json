@@ -8,39 +8,39 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "cordova-sqlite-storage": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "cordova-plugin-email-composer": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "cordova-plugin-file": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         },
         "cordova-plugin-image-picker": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.ionicframework.contactmanagermci32541714"
+            "PACKAGE_NAME": "com.ionicframework.PM_MCI32"
         }
     }
 }

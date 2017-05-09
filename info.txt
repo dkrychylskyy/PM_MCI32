@@ -5,8 +5,8 @@ Cordova version: 6.5.0
 Config.xml file: 
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.contactmanagermci32541714" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>ContactManagerMCI32</name>
+<widget id="com.ionicframework.PM_MCI32" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>PresentaionManager</name>
   <description>
         An Ionic Framework and Cordova project.
     </description>

@@ -1,7 +1,7 @@
 {
-  "name": "contactmanagermci32",
+  "name": "PM_MCI32",
   "version": "1.1.1",
-  "description": "ContactManagerMCI32: An Ionic project",
+  "description": "Presentation Manager: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
