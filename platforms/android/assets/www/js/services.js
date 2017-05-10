@@ -14,7 +14,7 @@ angular.module('starter.services', ['ngCordova'])
         }
 
         function initDatabase() {
-            $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_CONTACTS (id integer primary key, nom, prenom, codePostale, ville, email, portable, divers, manifest, createdDate DATATIME)')
+            $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_CONTACTS (id integer primary key, nom, prenom, codePostale, ville, email, portable, divers, manifest, dateToCall DATE, createdDate DATATIME)')
                 .then(function (res) {
 
                 }, onErrorQuery);
@@ -45,10 +45,10 @@ angular.module('starter.services', ['ngCordova'])
         return {
             createNote: function (note) {
                 var manifest = "";
-                return $cordovaSQLite.execute(db, 'INSERT INTO T_CONTACTS (nom, prenom, codePostale, ville, email, portable, divers, manifest, createdDate) VALUES(?, ?, ?, ?, ? ,?, ?, ?, datetime("now", "localtime"))', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest])
+                return $cordovaSQLite.execute(db, 'INSERT INTO T_CONTACTS (nom, prenom, codePostale, ville, email, portable, divers, manifest, dateToCall, createdDate) VALUES(?, ?, ?, ?, ? ,?, ?, ?, ?, datetime("now", "localtime"))', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall])
             },
             updateNote: function (note) {
-                return $cordovaSQLite.execute(db, 'UPDATE T_CONTACTS set nom = ?, prenom = ?, codePostale = ?, ville = ?, email = ?, portable = ?, divers = ?, manifest = ? where id = ?', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.id])
+                return $cordovaSQLite.execute(db, 'UPDATE T_CONTACTS set nom = ?, prenom = ?, codePostale = ?, ville = ?, email = ?, portable = ?, divers = ?, manifest = ?, dateToCall = ?, timeToCall = ? where id = ?', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall, note.id])
             },
             getAll: function (callback) {
                 $ionicPlatform.ready(function () {
@@ -135,18 +135,18 @@ angular.module('starter.services', ['ngCordova'])
 
         // disable for testing in browser
 
-        $ionicPlatform.ready(function () {
-          initCordovaEmailComposer();
-        })
-
-        function initCordovaEmailComposer() {
-          $cordovaEmailComposer.isAvailable().then(function () {
-            //is available
-          }, function () {
-            //not available
-            alert('Il vous faut regler boit mail');
-          })
-        }
+        // $ionicPlatform.ready(function () {
+        //     initCordovaEmailComposer();
+        // })
+        //
+        // function initCordovaEmailComposer() {
+        //     $cordovaEmailComposer.isAvailable().then(function () {
+        //         //is available
+        //     }, function () {
+        //         //not available
+        //         alert('Il vous faut regler boit mail');
+        //     })
+        // }
 
         return {
 

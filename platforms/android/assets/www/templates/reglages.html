@@ -31,17 +31,45 @@
         </a>
       </div>
         <!--TEST BLOCK-->
-        <div class="card" style="background-color: #f92672">
+        <div class="card">
             <a class="item item-icon-left card-item" ng-click="testClick()" >
-                <i class="icon  ion-ionic" style="color: white"></i>
+                <i class="icon  ion-ionic" style="color: red"></i>
                 Test button
               <span class="badge badge-assertive">0</span>
             </a>
         </div>
-      <div class="card" style="background-color: #f92672">
-        <input type="time" name="Time">
-        <input type="date" name="Date" id="">
-      </div>
+      <!--<div class="card">-->
+        <!--<span moment-picker="locale" locale="fr" ng-model="test.dateTime">-->
+            <!--{{ locale || 'Click here to select a date' }}-->
+        <!--</span>-->
+        <!--<span moment-picker="ctrl.birthday" locale="fr" format="LL">-->
+            <!--Mon anniversaire est le {{ ctrl.birthday }}-->
+        <!--</span>-->
+
+
+            <!--<div class="form-group">-->
+                <!--<label>Add date and time</label>-->
+                <!--<button class="form-control button button-balanced"-->
+                        <!--moment-picker="button.stringDate"-->
+                        <!--format="YYYY-MM-DD hh:mm"-->
+                        <!--start-view="month"-->
+                        <!--min-date="minDateString"-->
+                        <!--minutes-step="30"-->
+                        <!--locale="fr"-->
+                        <!--ng-model-options="{ updateOn: 'blur' }"-->
+                        <!--selectable="isSelectable(date, type)">-->
+                    <!--<span ng-class="{'text-muted': !button.stringDate}">-->
+                        <!--{{ button.stringDate || 'Select a date...' }}-->
+                    <!--</span>-->
+                <!--</button>-->
+            <!--</div>-->
+        <!--<input type="time" name="Time" ng-model="test.time">-->
+        <!--<input type="date" name="Date" ng-model="test.date">-->
+        <!--<input type="date">-->
+        <!--&lt;!&ndash;<p><h3>{{test.date | date: 'MM/dd/yyyy'}}</h3></p>&ndash;&gt;-->
+        <!--<p><h3>{{test.date}}</h3></p>-->
+        <!--<p><h3>{{test.time | date: 'HH:mm'}}</h3></p>-->
+      <!--</div>-->
         <!--<div class="button-bar">-->
             <!--<button class="button button-balanced "><i class="icon ion-trash-b mci-icon"></i></button>-->
             <!--<button class="button button-icon icon ion-trash-b assertive"></button>-->

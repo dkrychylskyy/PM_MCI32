@@ -5,6 +5,11 @@ angular.module('starter.controllers', ['ngCordova'])
             NotesDataService.getAll(function (data) {
                 $scope.disabledButton = false;
                 $scope.itemsList = data
+                console.log(data)
+                for (i = 0; i < data.length; i++){
+                    data[i].dateToCall = new Date(data[i].dateToCall)
+                    console.log(typeof (data[i].dateToCall))
+                }
                 if (data.length == 0) {
                     $scope.disabledButton = true;
                 }
@@ -54,6 +59,9 @@ angular.module('starter.controllers', ['ngCordova'])
             initForm();
         })
 
+        $scope.minDateMoment = moment().subtract(1, 'day');
+        $scope.minDateString = moment().subtract(0, 'day').format('YYYY-MM-DD hh:mm');
+
         function initForm() {
             if ($stateParams.id) {
                 NotesDataService.getById($stateParams.id, function (item) {
@@ -68,7 +76,8 @@ angular.module('starter.controllers', ['ngCordova'])
                     email: '',
                     portable: '',
                     divers: '',
-                    manifest: ''
+                    manifest: '',
+                    dateToCall: ''
                 };
                 NotesDataService.getManifest(function (data) {
                     $scope.noteForm.manifest = data[0].manifest;
@@ -116,7 +125,7 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup,ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup,ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk, momentPicker) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 $scope.formEmail = NotesDataService.getEmail(function (data) {
@@ -132,8 +141,10 @@ angular.module('starter.controllers', ['ngCordova'])
             })
         })
         ionicMaterialInk.displayEffect();
-        $scope.testClick = function () {
-        }
+
+        // set minimum date to yesterday
+        $scope.minDateMoment = moment().subtract(1, 'day');
+        $scope.minDateString = moment().subtract(0, 'day').format('YYYY-MM-DD');
     })
 
     .controller('AddImagesCtrl', function ($scope, $cordovaDevice, $stateParams, $cordovaImagePicker, $cordovaFile, $ionicPlatform, AddImageFromPicker, FileService) {

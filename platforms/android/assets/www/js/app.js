@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'ionic-material', 'ui.router'])
+angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'ionic-material', 'ui.router', 'moment-picker'])
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
       if(window.cordova && window.cordova.plugins.Keyboard) {
