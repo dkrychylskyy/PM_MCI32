@@ -2,7 +2,7 @@
   <ion-content>
       <div class="list">
         <div class="row">
-          <div class="col">
+          <div class="col" ng-hide="false">
             <label class="item item-input item-floating-label">
               <span class="input-label">Nom</span>
               <input type="text" placeholder="Nom" ng-minlength="2" ng-maxlength="30" name="nom" ng-model="noteForm.nom">
@@ -14,15 +14,13 @@
               <input type="text" ng-maxlength="20" placeholder="Prenom"  ng-model="noteForm.prenom">
             </label>
           </div>
-        </div>
-        <div class="row">
           <div class="col">
             <label class="item item-input item-floating-label">
               <span class="input-label">E-mail</span>
               <input type="email"  placeholder="E-mail" ng-model="noteForm.email">
             </label>
           </div>
-          <div class="col">
+          <div class="col" ng-hide="false">
             <label class="item item-input item-floating-label">
               <span class="input-label">Portable</span>
               <input type="tel" placeholder="Portable" ng-model="noteForm.portable">
@@ -30,7 +28,13 @@
           </div>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col col-50">
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Adresse</span>
+              <input type="text" placeholder="Adresse" ng-model="noteForm.adresse">
+            </label>
+          </div>
+          <div class="col col-20">
             <label class="item item-input item-floating-label">
               <span class="input-label">Code Postale</span>
               <input type="number" ng-maxlength="5" placeholder="Code Postale" ng-model="noteForm.codePostale">
@@ -43,25 +47,41 @@
             </label>
           </div>
         </div>
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Divers</span>
-          <input type="text" placeholder="Divers" ng-model="noteForm.divers">
-        </label>
-
-        <div class="mci-moment-picker" style="padding: 1em; margin: auto">
-          <button class="form-control button button-light icon-left ion-calendar"
-                  moment-picker="button.stringDate"
-                  format="L LT"
-                  start-view="month"
-                  min-date="minDateString"
-                  locale="fr"
-                  ng-model-options="{ updateOn: 'blur' }"
-                  ng-model="noteForm.dateToCall">
-                    <span ng-class="{'text-muted': !button.stringDate}">
-                      {{ button.stringDate || 'choisissez la date qui vous convient'}}
-                    </span>
-          </button>
+        <div class="row">
+          <div class="col col-50">
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Divers</span>
+              <input type="text" placeholder="Divers" ng-model="noteForm.divers">
+            </label>
+          </div>
+         <div class="col">
+           <label class="item item-input item-floating-label">
+             <span class="input-label">Date</span>
+             <input type="date" ng-model="noteForm.dateToCall">
+           </label>
+         </div>
+          <div class="col">
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Heure</span>
+              <input type="time" ng-model="noteForm.timeToCall">
+            </label>
+         </div>
         </div>
+
+        <!--<div class="mci-moment-picker" style="padding: 1em; margin: auto">-->
+          <!--<button class="form-control button button-light icon-left ion-calendar"-->
+                  <!--moment-picker="button.stringDate"-->
+                  <!--format="L LT"-->
+                  <!--start-view="month"-->
+                  <!--min-date="minDateString"-->
+                  <!--locale="fr"-->
+                  <!--ng-model-options="{ updateOn: 'blur' }"-->
+                  <!--ng-model="noteForm.dateToCall">-->
+                    <!--<span ng-class="{'text-muted': !button.stringDate}">-->
+                      <!--{{ button.stringDate || 'choisissez la date qui vous convient'}}-->
+                    <!--</span>-->
+          <!--</button>-->
+        <!--</div>-->
 
 
 
@@ -69,9 +89,13 @@
           <span class="input-label">manifest</span>
           <input type="text" placeholder="manifest" ng-model="noteForm.manifest">
         </label>
+        <div class="row">
+          <button ng-show="!noteForm.id" ui-sref="reglages" class="button button-raised button-stable button-balanced ink-dark" style= "position: relative; margin: 0 auto;" ng-click="saveNote()">Confirmer</button>
+        </div>
+
       </div>
-    <button ng-show="!noteForm.id" ui-sref="reglages" class="button button-fab button-fab-bottom-right button-balanced" ng-click="saveNote()"><i
-      class="icon ion-checkmark"></i></button>
+    <!--<button ng-show="!noteForm.id" ui-sref="reglages" class="button button-fab button-fab-bottom button-balanced" ng-click="saveNote()"><i-->
+      <!--class="icon ion-checkmark"></i></button>-->
 
     <div ng-show="noteForm.id" class="button-bar">
       <a class="button button-balanced" ng-click="saveNote()">

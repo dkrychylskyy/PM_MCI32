@@ -1,6 +1,6 @@
 angular.module('starter.services', ['ngCordova'])
 
-    .factory('NotesDataService', function ($cordovaSQLite, $ionicPlatform) {
+    .factory('NotesDataService', function ($cordovaSQLite, $ionicPlatform, $filter) {
         var db, dbName = "CONTACTS_DB"
 
         function useWebSql() {
@@ -14,7 +14,7 @@ angular.module('starter.services', ['ngCordova'])
         }
 
         function initDatabase() {
-            $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_CONTACTS (id integer primary key, nom, prenom, codePostale, ville, email, portable, divers, manifest, dateToCall DATE, createdDate DATATIME)')
+            $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_CONTACTS (id integer primary key, nom, prenom, codePostale, ville, email, portable, divers, manifest, dateToCall DATE, timeToCall, createdDate DATATIME)')
                 .then(function (res) {
 
                 }, onErrorQuery);
@@ -45,10 +45,10 @@ angular.module('starter.services', ['ngCordova'])
         return {
             createNote: function (note) {
                 var manifest = "";
-                return $cordovaSQLite.execute(db, 'INSERT INTO T_CONTACTS (nom, prenom, codePostale, ville, email, portable, divers, manifest, dateToCall, createdDate) VALUES(?, ?, ?, ?, ? ,?, ?, ?, ?, datetime("now", "localtime"))', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall])
+                return $cordovaSQLite.execute(db, 'INSERT INTO T_CONTACTS (nom, prenom, codePostale, ville, email, portable, divers, manifest, dateToCall, timeToCall, createdDate) VALUES(?, ?, ?, ?, ? ,?, ?, ?, ?, ?, datetime("now", "localtime"))', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall, note.timeToCall])
             },
             updateNote: function (note) {
-                return $cordovaSQLite.execute(db, 'UPDATE T_CONTACTS set nom = ?, prenom = ?, codePostale = ?, ville = ?, email = ?, portable = ?, divers = ?, manifest = ?, dateToCall = ?, timeToCall = ? where id = ?', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall, note.id])
+                return $cordovaSQLite.execute(db, 'UPDATE T_CONTACTS set nom = ?, prenom = ?, codePostale = ?, ville = ?, email = ?, portable = ?, divers = ?, manifest = ?, dateToCall = ?, timeToCall = ? where id = ?', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall, note.timeToCall, note.id])
             },
             getAll: function (callback) {
                 $ionicPlatform.ready(function () {
@@ -66,12 +66,20 @@ angular.module('starter.services', ['ngCordova'])
 
             getContactsForCSV: function (callback) {
                 $ionicPlatform.ready(function () {
-                    $cordovaSQLite.execute(db, 'SELECT manifest AS manifestation, createdDate AS creation, nom, prenom, email, portable, ville, codePostale AS code_postal, divers ' +
+                    $cordovaSQLite.execute(db, 'SELECT manifest AS manifestation, createdDate AS creation, nom, prenom, email, portable, ville, codePostale AS code_postal, divers, dateToCall AS date_pour_cont, timeToCall AS heure_pour_cont ' +
                         'FROM T_CONTACTS ORDER BY createdDate DESC, manifest ASC').then(function (results) {
                         var data = []
 
                         for (i = 0, max = results.rows.length; i < max; i++) {
-                            data.push(results.rows.item(i))
+                            var myObj = results.rows.item(i)
+                            if (myObj.date_pour_cont == ''){
+                                myObj.date_pour_cont = $filter('date')(new Date(myObj.date_pour_cont), "dd-MM-yyyy")
+                            }
+                            if (myObj.heure_pour_cont == ''){
+                                myObj.heure_pour_cont = $filter('date')(new Date(myObj.heure_pour_cont), "HH:mm")
+                            }
+
+                            data.push(myObj)
                         }
 
                         callback(data)

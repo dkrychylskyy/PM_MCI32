@@ -1,27 +1,36 @@
 <ion-view view-title="Liste des contacts">
-  <ion-content>
-    <div class="button-bar padding-top">
-      <a class="button button-balanced" href="#/form/">Ajouter un contact</a>
-      <a class="button button-positive" ng-click="sendContacts()">Envoyer par mail</a>
-      <a class="button button-assertive" ng-disabled="disabledButton" ng-click="deleteAllContacts()">Supprimer toutes les contacts</a>
-    </div>
-
-    <div class="card" ng-repeat="item in itemsList" ng-click="gotoEdit(item.id)">
-      <div class="item item-divider">
-        {{item.nom}} {{item.prenom}}
-      </div>
-      <div class="padding">
-        <div class="item item-text-wrap">
-          <p>Code Postale : {{item.codePostale}}</p>
-          <p>Ville : {{item.ville}}</p>
-          <p>E-mail : {{item.email}}</p>
-          <p>Portable : {{item.portable}}</p>
-          <p>Divers : {{item.divers}}</p>
-          <p>Manifest : {{item.manifest}}</p>
-          <p>Date pour contacter : {{item.dateToCall | date: "dd-MM-yyyy hh:mm"}}</p>
-
+    <ion-content>
+        <div class="button-bar">
+            <a class="button button-balanced" href="#/form/">Ajouter un contact</a>
+            <a class="button button-positive" ng-click="sendContacts()">Envoyer par mail</a>
+            <a class="button button-assertive" ng-disabled="disabledButton" ng-click="deleteAllContacts()">Supprimer
+                toutes les contacts</a>
         </div>
-      </div>
-    </div>
-  </ion-content>
+
+        <div class="row">
+            <!--<div class="col-33" style="float: left">-->
+                <div class="card col-50" ng-repeat="item in itemsList" ng-click="gotoEdit(item.id)">
+                    <div class="item item-divider">
+                        {{item.nom}} {{item.prenom}}
+                    </div>
+                    <div class="padding">
+                        <div class="item item-text-wrap">
+                            <p>Code Postale : {{item.codePostale}}</p>
+                            <p>Ville : {{item.ville}}</p>
+                            <p>E-mail : {{item.email}}</p>
+                            <p>Portable : {{item.portable}}</p>
+                            <p>Divers : {{item.divers}}</p>
+                            <p>Manifest : {{item.manifest}}</p>
+                            <div class="item item-divider" ng-show="item.dateToCall">
+                             <i class="ion ion-information-circled positive"></i>
+                                contacter á  : {{item.dateToCall | date: "dd-MM-yyyy"}}
+                                    {{item.timeToCall | date: "HH:mm"}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!--</div>-->
+        </div>
+
+    </ion-content>
 </ion-view>

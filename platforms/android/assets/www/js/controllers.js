@@ -5,10 +5,13 @@ angular.module('starter.controllers', ['ngCordova'])
             NotesDataService.getAll(function (data) {
                 $scope.disabledButton = false;
                 $scope.itemsList = data
-                console.log(data)
                 for (i = 0; i < data.length; i++){
-                    data[i].dateToCall = new Date(data[i].dateToCall)
-                    console.log(typeof (data[i].dateToCall))
+                    if (!data[i].dateToCall == ''){
+                        data[i].dateToCall = new Date(data[i].dateToCall)
+                    }
+                    if (!data[i].timeToCall == ''){
+                        data[i].timeToCall = new Date(data[i].timeToCall)
+                    }
                 }
                 if (data.length == 0) {
                     $scope.disabledButton = true;
@@ -59,8 +62,9 @@ angular.module('starter.controllers', ['ngCordova'])
             initForm();
         })
 
-        $scope.minDateMoment = moment().subtract(1, 'day');
-        $scope.minDateString = moment().subtract(0, 'day').format('YYYY-MM-DD hh:mm');
+        //for moment-picker. Not used
+        // $scope.minDateMoment = moment().subtract(1, 'day');
+        // $scope.minDateString = moment().subtract(0, 'day').format('YYYY-MM-DD hh:mm');
 
         function initForm() {
             if ($stateParams.id) {
@@ -77,7 +81,8 @@ angular.module('starter.controllers', ['ngCordova'])
                     portable: '',
                     divers: '',
                     manifest: '',
-                    dateToCall: ''
+                    dateToCall: '',
+                    timeToCall: new Date(1970, 0, 1, 09)
                 };
                 NotesDataService.getManifest(function (data) {
                     $scope.noteForm.manifest = data[0].manifest;
@@ -172,7 +177,6 @@ angular.module('starter.controllers', ['ngCordova'])
                 $scope.images = images;
                 $scope.lastImg = images[images.length - 1];
                 $scope.$apply();
-                console.log($scope);
                 $scope.sliderOptions = {
                     onInit: function (swiper) {
                         $scope.swiper = swiper;
