@@ -130,7 +130,7 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup,ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk, momentPicker) {
+    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup,ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 $scope.formEmail = NotesDataService.getEmail(function (data) {
