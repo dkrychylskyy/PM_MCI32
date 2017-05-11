@@ -143,18 +143,18 @@ angular.module('starter.services', ['ngCordova'])
 
         // disable for testing in browser
 
-        // $ionicPlatform.ready(function () {
-        //     initCordovaEmailComposer();
-        // })
-        //
-        // function initCordovaEmailComposer() {
-        //     $cordovaEmailComposer.isAvailable().then(function () {
-        //         //is available
-        //     }, function () {
-        //         //not available
-        //         alert('Il vous faut regler boit mail');
-        //     })
-        // }
+        $ionicPlatform.ready(function () {
+            initCordovaEmailComposer();
+        })
+
+        function initCordovaEmailComposer() {
+            $cordovaEmailComposer.isAvailable().then(function () {
+                //is available
+            }, function () {
+                //not available
+                alert('Il vous faut regler boit mail');
+            })
+        }
 
         return {
 
@@ -300,3 +300,29 @@ angular.module('starter.services', ['ngCordova'])
             }
         }
     })
+    .factory('SettingsFormService', ['$window', function ($window) {
+        return{
+            set: function(key, value) {
+                $window.localStorage[key] = value;
+
+            },
+            get: function(key, value) {
+                return $window.localStorage;
+            },
+
+            setObject: function(key, value) {
+                $window.localStorage[key] = JSON.stringify(value);
+            },
+            getObject: function(key) {
+                if($window.localStorage[key] != undefined)
+                    return JSON.parse($window.localStorage[key] || false );
+
+                return false;
+            },
+
+
+            clear: function(){
+                $window.localStorage.clear();
+            }
+        }
+    }])

@@ -5,11 +5,11 @@ angular.module('starter.controllers', ['ngCordova'])
             NotesDataService.getAll(function (data) {
                 $scope.disabledButton = false;
                 $scope.itemsList = data
-                for (i = 0; i < data.length; i++){
-                    if (!data[i].dateToCall == ''){
+                for (i = 0; i < data.length; i++) {
+                    if (!data[i].dateToCall == '') {
                         data[i].dateToCall = new Date(data[i].dateToCall)
                     }
-                    if (!data[i].timeToCall == ''){
+                    if (!data[i].timeToCall == '') {
                         data[i].timeToCall = new Date(data[i].timeToCall)
                     }
                 }
@@ -56,15 +56,38 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService) {
+    .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService, SettingsFormService) {
         $scope.$on('$ionicView.enter', function (e) {
 
             initForm();
+            hideFilds();
         })
 
         //for moment-picker. Not used
         // $scope.minDateMoment = moment().subtract(1, 'day');
         // $scope.minDateString = moment().subtract(0, 'day').format('YYYY-MM-DD hh:mm');
+
+        function hideFilds() {
+            var getfields = SettingsFormService.getObject('filds');
+            for (var key in getfields){
+                if (!getfields.hasOwnProperty(key)) continue;
+                var obj = getfields[key];
+                for (var prop in obj){
+                    if (!obj.hasOwnProperty(prop)) continue;
+                    // console.log('key =',key);
+                    console.log(prop + " = " + obj[prop]);
+                    if (prop == 'value'){
+                         var value = obj[prop];
+                         console.log('value in prop', value)
+                    }
+                    $scope['hide'+ key] = value;
+
+                    // console.log('hide + key',$scope['hidenom'].true) ;
+                }
+            }
+            console.log($scope)
+
+        }
 
         function initForm() {
             if ($stateParams.id) {
@@ -130,7 +153,7 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup,ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 $scope.formEmail = NotesDataService.getEmail(function (data) {
@@ -222,4 +245,74 @@ angular.module('starter.controllers', ['ngCordova'])
                 }
             })
         })
+    })
+
+    .controller('ParamsFormCtrl', function ($scope, SettingsFormService) {
+
+        var fildsInLS = SettingsFormService.getObject('filds');
+            console.log('local storage',fildsInLS);
+        if (!fildsInLS){
+            $scope.filds = initFilds();
+            SettingsFormService.setObject('filds', $scope.filds)
+            console.log(fildsInLS)
+        } else {
+            $scope.filds = SettingsFormService.getObject('filds')
+        }
+
+
+
+        function initFilds() {
+            var filds = {
+                nom: {
+                    value: true,
+                    name: 'Nom'
+                },
+                prenom: {
+                    value: true,
+                    name: 'Prenom'
+                },
+                email: {
+                    value: true,
+                    name: 'E-mail'
+                },
+                portable: {
+                    value: true,
+                    name: 'Portable'
+                },
+                adresse: {
+                    value: true,
+                    name: 'Adresse'
+                },
+                CP: {
+                    value: true,
+                    name: 'Code Postale'
+                },
+                ville: {
+                    value: true,
+                    name: 'Ville'
+                },
+                divers: {
+                    value: true,
+                    name: 'Divers'
+                },
+                date: {
+                    value: true,
+                    name: 'Date'
+                },
+                heure: {
+                    value: true,
+                    name: 'Heure'
+                }
+            }
+            return filds
+        }
+
+        $scope.clearLocalStorage = function () {
+            localStorage.clear()
+        }
+
+        $scope.change = function () {
+         console.log('$scope.filds', $scope.filds)
+         SettingsFormService.setObject('filds', $scope.filds)
+        }
     })

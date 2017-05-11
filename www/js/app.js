@@ -58,6 +58,11 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'i
             controller: 'ParamsManifestCtrl'
         })
 
+        .state('formParams', {
+            url: '/formParams',
+            templateUrl: 'templates/params-form.html',
+            controller: 'ParamsFormCtrl'
+        })
 
 
       $urlRouterProvider.otherwise('/slider')

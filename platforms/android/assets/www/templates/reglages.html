@@ -1,81 +1,88 @@
 <ion-view view-title="Réglages">
-  <ion-content>
-    <div class="list">
-      <div class="card">
-        <a class="item item-icon-left padding-top card-item" href="#/emailParams">
-          <i class="icon ion-email"></i>
-          Paramétrage d'email
-          <span class="pull-right positive">{{currentEmail}}</span>
-        </a>
-      </div>
+    <ion-content>
+        <div class="list">
+            <div class="card">
+                <a class="item item-icon-left padding-top card-item" href="#/emailParams">
+                    <i class="icon ion-email"></i>
+                    Paramétrage d'email
+                    <span class="pull-right positive">{{currentEmail}}</span>
+                </a>
+            </div>
 
-      <div class="card">
-        <a class="item item-icon-left padding-top card-item" href="#/manifestParams">
-          <i class="icon ion-android-pin"></i>
-          Manifestation
-          <span class="pull-right positive-900">{{currentManifest}}</span>
-        </a>
-      </div>
+            <div class="card">
+                <a class="item item-icon-left padding-top card-item" href="#/manifestParams">
+                    <i class="icon ion-android-pin"></i>
+                    Manifestation
+                    <span class="pull-right positive-900">{{currentManifest}}</span>
+                </a>
+            </div>
 
-      <div class="card">
-      <a class="item item-icon-left card-item" href="#/list">
-        <i class="icon ion-person-stalker"></i>
-        Contacts
-          <span class="badge badge-assertive">{{numberOfContacts}}</span>
-      </a>
-    </div>
-      <div class="card">
-        <a class="item item-icon-left card-item" href="#/addImages">
-          <i class="icon  ion-images"></i>
-          Images
-        </a>
-      </div>
-        <!--TEST BLOCK-->
-        <div class="card">
-            <a class="item item-icon-left card-item" ng-click="testClick()" >
-                <i class="icon  ion-ionic" style="color: red"></i>
-                Test button
-              <span class="badge badge-assertive">0</span>
-            </a>
-        </div>
-      <!--<div class="card">-->
-        <!--<span moment-picker="locale" locale="fr" ng-model="test.dateTime">-->
+            <div class="card">
+                <a class="item item-icon-left padding-top card-item" href="#/formParams">
+                    <i class="icon ion-clipboard"></i>
+                    Paramétrage formulaire
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="item item-icon-left card-item" href="#/list">
+                    <i class="icon ion-person-stalker"></i>
+                    Contacts
+                    <span class="badge badge-assertive">{{numberOfContacts}}</span>
+                </a>
+            </div>
+            <div class="card">
+                <a class="item item-icon-left card-item" href="#/addImages">
+                    <i class="icon  ion-images"></i>
+                    Images
+                </a>
+            </div>
+            <!--TEST BLOCK-->
+            <div class="card">
+                <a class="item item-icon-left card-item" ng-click="testClick()">
+                    <i class="icon  ion-ionic" style="color: red"></i>
+                    Test button
+                    <span class="badge badge-assertive">0</span>
+                </a>
+            </div>
+            <!--<div class="card">-->
+            <!--<span moment-picker="locale" locale="fr" ng-model="test.dateTime">-->
             <!--{{ locale || 'Click here to select a date' }}-->
-        <!--</span>-->
-        <!--<span moment-picker="ctrl.birthday" locale="fr" format="LL">-->
+            <!--</span>-->
+            <!--<span moment-picker="ctrl.birthday" locale="fr" format="LL">-->
             <!--Mon anniversaire est le {{ ctrl.birthday }}-->
-        <!--</span>-->
+            <!--</span>-->
 
 
             <!--<div class="form-group">-->
-                <!--<label>Add date and time</label>-->
-                <!--<button class="form-control button button-balanced"-->
-                        <!--moment-picker="button.stringDate"-->
-                        <!--format="YYYY-MM-DD hh:mm"-->
-                        <!--start-view="month"-->
-                        <!--min-date="minDateString"-->
-                        <!--minutes-step="30"-->
-                        <!--locale="fr"-->
-                        <!--ng-model-options="{ updateOn: 'blur' }"-->
-                        <!--selectable="isSelectable(date, type)">-->
-                    <!--<span ng-class="{'text-muted': !button.stringDate}">-->
-                        <!--{{ button.stringDate || 'Select a date...' }}-->
-                    <!--</span>-->
-                <!--</button>-->
+            <!--<label>Add date and time</label>-->
+            <!--<button class="form-control button button-balanced"-->
+            <!--moment-picker="button.stringDate"-->
+            <!--format="YYYY-MM-DD hh:mm"-->
+            <!--start-view="month"-->
+            <!--min-date="minDateString"-->
+            <!--minutes-step="30"-->
+            <!--locale="fr"-->
+            <!--ng-model-options="{ updateOn: 'blur' }"-->
+            <!--selectable="isSelectable(date, type)">-->
+            <!--<span ng-class="{'text-muted': !button.stringDate}">-->
+            <!--{{ button.stringDate || 'Select a date...' }}-->
+            <!--</span>-->
+            <!--</button>-->
             <!--</div>-->
-        <!--<input type="time" name="Time" ng-model="test.time">-->
-        <!--<input type="date" name="Date" ng-model="test.date">-->
-        <!--<input type="date">-->
-        <!--&lt;!&ndash;<p><h3>{{test.date | date: 'MM/dd/yyyy'}}</h3></p>&ndash;&gt;-->
-        <!--<p><h3>{{test.date}}</h3></p>-->
-        <!--<p><h3>{{test.time | date: 'HH:mm'}}</h3></p>-->
-      <!--</div>-->
-        <!--<div class="button-bar">-->
+            <!--<input type="time" name="Time" ng-model="test.time">-->
+            <!--<input type="date" name="Date" ng-model="test.date">-->
+            <!--<input type="date">-->
+            <!--&lt;!&ndash;<p><h3>{{test.date | date: 'MM/dd/yyyy'}}</h3></p>&ndash;&gt;-->
+            <!--<p><h3>{{test.date}}</h3></p>-->
+            <!--<p><h3>{{test.time | date: 'HH:mm'}}</h3></p>-->
+            <!--</div>-->
+            <!--<div class="button-bar">-->
             <!--<button class="button button-balanced "><i class="icon ion-trash-b mci-icon"></i></button>-->
             <!--<button class="button button-icon icon ion-trash-b assertive"></button>-->
-        <!--</div>-->
+            <!--</div>-->
 
-        <!--END TEST BLOCK-->
-    </div>
-  </ion-content>
+            <!--END TEST BLOCK-->
+        </div>
+    </ion-content>
 </ion-view>

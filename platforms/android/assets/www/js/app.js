@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'ionic-material', 'ui.router', 'moment-picker'])
+angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'ionic-material', 'ui.router'])
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
       if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -58,6 +58,11 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'i
             controller: 'ParamsManifestCtrl'
         })
 
+        .state('formParams', {
+            url: '/formParams',
+            templateUrl: 'templates/params-form.html',
+            controller: 'ParamsFormCtrl'
+        })
 
 
       $urlRouterProvider.otherwise('/slider')
