@@ -64,6 +64,11 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'i
             controller: 'ParamsFormCtrl'
         })
 
+        .state('invitParams', {
+            url: '/invitParams',
+            templateUrl: 'templates/params-invit.html',
+            controller: 'ParamsInvitCtrl'
+        })
 
       $urlRouterProvider.otherwise('/slider')
   })

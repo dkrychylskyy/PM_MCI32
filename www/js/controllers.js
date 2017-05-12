@@ -167,7 +167,7 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup, ContactsService, SettingsFormService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 $scope.formEmail = NotesDataService.getEmail(function (data) {
@@ -180,13 +180,14 @@ angular.module('starter.controllers', ['ngCordova'])
                     $scope.numberOfContacts = data.length
                 })
 
+                $scope.currentInvitation = SettingsFormService.get('invitation')
             })
         })
         ionicMaterialInk.displayEffect();
 
         // set minimum date to yesterday
-        $scope.minDateMoment = moment().subtract(1, 'day');
-        $scope.minDateString = moment().subtract(0, 'day').format('YYYY-MM-DD');
+        // $scope.minDateMoment = moment().subtract(1, 'day');
+        // $scope.minDateString = moment().subtract(0, 'day').format('YYYY-MM-DD');
     })
 
     .controller('AddImagesCtrl', function ($scope, $cordovaDevice, $stateParams, $cordovaImagePicker, $cordovaFile, $ionicPlatform, AddImageFromPicker, FileService) {
@@ -219,6 +220,7 @@ angular.module('starter.controllers', ['ngCordova'])
                         $scope.swiper = swiper;
                     }
                 }
+                $scope.currentInvitation = SettingsFormService.get('invitation')
             })
         })
         ionicMaterialInk.displayEffect();
@@ -328,5 +330,14 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.change = function () {
          console.log('$scope.filds', $scope.filds)
          SettingsFormService.setObject('filds', $scope.filds)
+        }
+    })
+    
+    .controller('ParamsInvitCtrl', function ($scope, $state, SettingsFormService) {
+        $scope.formInvitation = {text: ''};
+        $scope.formInvitation.text = SettingsFormService.get('invitation')
+        $scope.addInvitation = function () {
+            SettingsFormService.set('invitation', $scope.formInvitation.text);
+            $state.go('reglages');
         }
     })

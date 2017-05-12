@@ -311,7 +311,7 @@ angular.module('starter.services', ['ngCordova'])
 
             },
             get: function(key, value) {
-                return $window.localStorage;
+                return $window.localStorage[key];
             },
 
             setObject: function(key, value) {
