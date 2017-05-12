@@ -4,7 +4,7 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.$on('$ionicView.enter', function (e) {
             NotesDataService.getAll(function (data) {
                 $scope.disabledButton = false;
-                $scope.itemsList = data
+                $scope.itemsList = data;
                 for (i = 0; i < data.length; i++) {
                     if (!data[i].dateToCall == '') {
                         data[i].dateToCall = new Date(data[i].dateToCall)
@@ -75,14 +75,10 @@ angular.module('starter.controllers', ['ngCordova'])
                 for (var prop in obj){
                     if (!obj.hasOwnProperty(prop)) continue;
                     // console.log('key =',key);
-                    console.log(prop + " = " + obj[prop]);
                     if (prop == 'value'){
                          var value = obj[prop];
-                         console.log('value in prop', value)
                     }
                     $scope['hide'+ key] = value;
-
-                    // console.log('hide + key',$scope['hidenom'].true) ;
                 }
             }
             console.log($scope)
@@ -92,7 +88,24 @@ angular.module('starter.controllers', ['ngCordova'])
         function initForm() {
             if ($stateParams.id) {
                 NotesDataService.getById($stateParams.id, function (item) {
-                    $scope.noteForm = item
+                    if (item){
+                        var new_item = {};
+                        for (field in item){
+                            if (field == 'dateToCall'){
+                                new_item[field] = new Date(item[field]);
+                                continue
+                            }
+                            if (field == 'timeToCall'){
+                                new_item[field] = new Date(item[field]);
+                                continue
+                            }
+                            new_item[field] = item[field];
+                        }
+                       for (item in new_item){
+                       }
+                    }
+                    // $scope.noteForm = item
+                    $scope.noteForm = new_item
                 })
             } else {
                 $scope.noteForm = {
@@ -100,12 +113,13 @@ angular.module('starter.controllers', ['ngCordova'])
                     prenom: '',
                     codePostale: '',
                     ville: '',
+                    adresse: '',
                     email: '',
                     portable: '',
                     divers: '',
                     manifest: '',
                     dateToCall: '',
-                    timeToCall: new Date(1970, 0, 1, 09)
+                    timeToCall: new Date(1970, 0, 1, 00)
                 };
                 NotesDataService.getManifest(function (data) {
                     $scope.noteForm.manifest = data[0].manifest;
@@ -115,8 +129,9 @@ angular.module('starter.controllers', ['ngCordova'])
 
         function onSaveSuccess() {
             $state.go('slider');
+            var text = SettingsFormService.get('remerci');
             var alertPopup = $ionicPopup.alert({
-                title: '<h3>Merci de votre confiance</h3>',
+                title: '<h3>' + text + '</h3>',
                 okType: 'button-balanced'
 
             })
@@ -153,7 +168,7 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup, ContactsService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup, ContactsService, SettingsFormService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 $scope.formEmail = NotesDataService.getEmail(function (data) {
@@ -166,13 +181,15 @@ angular.module('starter.controllers', ['ngCordova'])
                     $scope.numberOfContacts = data.length
                 })
 
+                $scope.currentInvitation = SettingsFormService.get('invitation')
+                $scope.currentRemerci = SettingsFormService.get('remerci')
             })
         })
         ionicMaterialInk.displayEffect();
 
         // set minimum date to yesterday
-        $scope.minDateMoment = moment().subtract(1, 'day');
-        $scope.minDateString = moment().subtract(0, 'day').format('YYYY-MM-DD');
+        // $scope.minDateMoment = moment().subtract(1, 'day');
+        // $scope.minDateString = moment().subtract(0, 'day').format('YYYY-MM-DD');
     })
 
     .controller('AddImagesCtrl', function ($scope, $cordovaDevice, $stateParams, $cordovaImagePicker, $cordovaFile, $ionicPlatform, AddImageFromPicker, FileService) {
@@ -192,7 +209,7 @@ angular.module('starter.controllers', ['ngCordova'])
         })
     })
 
-    .controller('SliderCtrl', function ($scope, $cordovaDevice, $stateParams, $state, $ionicPlatform, $cordovaImagePicker, AddImageFromPicker, FileService, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('SliderCtrl', function ($scope, $cordovaDevice, $stateParams, $state, $ionicPlatform, $cordovaImagePicker, AddImageFromPicker, FileService, SettingsFormService, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 var images = FileService.images();
@@ -205,6 +222,7 @@ angular.module('starter.controllers', ['ngCordova'])
                         $scope.swiper = swiper;
                     }
                 }
+                $scope.currentInvitation = SettingsFormService.get('invitation')
             })
         })
         ionicMaterialInk.displayEffect();
@@ -285,7 +303,7 @@ angular.module('starter.controllers', ['ngCordova'])
                 },
                 CP: {
                     value: true,
-                    name: 'Code Postale'
+                    name: 'Code Postal'
                 },
                 ville: {
                     value: true,
@@ -316,3 +334,21 @@ angular.module('starter.controllers', ['ngCordova'])
          SettingsFormService.setObject('filds', $scope.filds)
         }
     })
+    
+    .controller('ParamsInvitCtrl', function ($scope, $state, SettingsFormService) {
+        $scope.formInvitation = {text: ''};
+        $scope.formInvitation.text = SettingsFormService.get('invitation')
+        $scope.addInvitation = function () {
+            SettingsFormService.set('invitation', $scope.formInvitation.text);
+            $state.go('reglages');
+        }
+    })
+
+    .controller('ParamsRemerciCtrl', function ($scope, $state, SettingsFormService) {
+    $scope.formRemerci = {text: ''};
+    $scope.formRemerci.text = SettingsFormService.get('remerci')
+    $scope.addRemerci = function () {
+        SettingsFormService.set('remerci', $scope.formRemerci.text);
+        $state.go('reglages');
+    }
+})

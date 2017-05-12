@@ -69,6 +69,11 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services', 'i
             templateUrl: 'templates/params-invit.html',
             controller: 'ParamsInvitCtrl'
         })
+        .state('remerciParams', {
+            url: '/remerciParams',
+            templateUrl: 'templates/params-remerci.html',
+            controller: 'ParamsRemerciCtrl'
+        })
 
       $urlRouterProvider.otherwise('/slider')
   })

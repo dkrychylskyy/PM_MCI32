@@ -129,8 +129,9 @@ angular.module('starter.controllers', ['ngCordova'])
 
         function onSaveSuccess() {
             $state.go('slider');
+            var text = SettingsFormService.get('remerci');
             var alertPopup = $ionicPopup.alert({
-                title: '<h3>Merci de votre confiance</h3>',
+                title: '<h3>' + text + '</h3>',
                 okType: 'button-balanced'
 
             })
@@ -181,6 +182,7 @@ angular.module('starter.controllers', ['ngCordova'])
                 })
 
                 $scope.currentInvitation = SettingsFormService.get('invitation')
+                $scope.currentRemerci = SettingsFormService.get('remerci')
             })
         })
         ionicMaterialInk.displayEffect();
@@ -207,7 +209,7 @@ angular.module('starter.controllers', ['ngCordova'])
         })
     })
 
-    .controller('SliderCtrl', function ($scope, $cordovaDevice, $stateParams, $state, $ionicPlatform, $cordovaImagePicker, AddImageFromPicker, FileService, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('SliderCtrl', function ($scope, $cordovaDevice, $stateParams, $state, $ionicPlatform, $cordovaImagePicker, AddImageFromPicker, FileService, SettingsFormService, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 var images = FileService.images();
@@ -301,7 +303,7 @@ angular.module('starter.controllers', ['ngCordova'])
                 },
                 CP: {
                     value: true,
-                    name: 'Code Postale'
+                    name: 'Code Postal'
                 },
                 ville: {
                     value: true,
@@ -341,3 +343,12 @@ angular.module('starter.controllers', ['ngCordova'])
             $state.go('reglages');
         }
     })
+
+    .controller('ParamsRemerciCtrl', function ($scope, $state, SettingsFormService) {
+    $scope.formRemerci = {text: ''};
+    $scope.formRemerci.text = SettingsFormService.get('remerci')
+    $scope.addRemerci = function () {
+        SettingsFormService.set('remerci', $scope.formRemerci.text);
+        $state.go('reglages');
+    }
+})

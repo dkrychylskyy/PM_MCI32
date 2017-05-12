@@ -6,32 +6,23 @@
             <a class="button button-assertive" ng-disabled="disabledButton" ng-click="deleteAllContacts()">Supprimer
                 toutes les contacts</a>
         </div>
-        <div class="row">
-            <div class="list card" ng-repeat="item in itemsList" ng-click="gotoEdit(item.id)">
-                <div class="item item-icon-left">
-                    <i class="icon ion-person"></i>
-                     <span>{{item.nom}} {{item.prenom}}</span>
+        <div class="card" ng-repeat="item in itemsList" ng-click="gotoEdit(item.id)">
+            <div class="item item-divider-android">
+                <p>{{item.nom}} {{item.prenom}}</p>
+                <p>Portable : {{item.portable}} </p>
+                <p>E-mail : {{item.email}}</br>
+                <p>Code Postal : {{item.codePostale}}</p>
+                <p>Ville : {{item.ville}}</p>
+                <p>Adresse : {{item.adresse}}</p>
+                <p>Divers ou projets: {{item.divers}}</p>
+                <p>Manifest : {{item.manifest}}</p>
+                <div class="item item-divider-android">
+                    <i class="ion ion-information-circled positive"></i>
+                    contacter le : {{item.dateToCall | date: "dd-MM-yyyy"}}
+                    {{item.timeToCall | date: "HH:mm"}}
                 </div>
-                <div class="item item-icon-left">
-                    <i class="icon ion-android-call"></i>
-                    <span>{{item.portable}}</span>
-                </div>
-                <div class="item item-icon-left">
-                    <i class="icon ion-at"></i>
-                    {{item.email}}
-                </div>
-                <div class="item item-icon-left">
-                    Code Postale : {{item.codePostale}}
-                </div>
-                <div class="item item-icon-left">Ville : {{item.ville}}</div>
-                <div class="item item-icon-left">Divers : {{item.divers}}</div>
-                <div class="item item-icon-left">Manifest : {{item.manifest}}</div>
-                <div class="item item-icon-left" ng-show="item.dateToCall"></div>
-                <i class="ion ion-information-circled positive"></i>
-                contacter á : {{item.dateToCall | date: "dd-MM-yyyy"}}
-                {{item.timeToCall | date: "HH:mm"}}
             </div>
-        </div>
+
     </ion-content>
 </ion-view>
 
