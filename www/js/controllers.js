@@ -4,7 +4,7 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.$on('$ionicView.enter', function (e) {
             NotesDataService.getAll(function (data) {
                 $scope.disabledButton = false;
-                $scope.itemsList = data
+                $scope.itemsList = data;
                 for (i = 0; i < data.length; i++) {
                     if (!data[i].dateToCall == '') {
                         data[i].dateToCall = new Date(data[i].dateToCall)
@@ -75,14 +75,10 @@ angular.module('starter.controllers', ['ngCordova'])
                 for (var prop in obj){
                     if (!obj.hasOwnProperty(prop)) continue;
                     // console.log('key =',key);
-                    console.log(prop + " = " + obj[prop]);
                     if (prop == 'value'){
                          var value = obj[prop];
-                         console.log('value in prop', value)
                     }
                     $scope['hide'+ key] = value;
-
-                    // console.log('hide + key',$scope['hidenom'].true) ;
                 }
             }
             console.log($scope)
@@ -92,7 +88,24 @@ angular.module('starter.controllers', ['ngCordova'])
         function initForm() {
             if ($stateParams.id) {
                 NotesDataService.getById($stateParams.id, function (item) {
-                    $scope.noteForm = item
+                    if (item){
+                        var new_item = {};
+                        for (field in item){
+                            if (field == 'dateToCall'){
+                                new_item[field] = new Date(item[field]);
+                                continue
+                            }
+                            if (field == 'timeToCall'){
+                                new_item[field] = new Date(item[field]);
+                                continue
+                            }
+                            new_item[field] = item[field];
+                        }
+                       for (item in new_item){
+                       }
+                    }
+                    // $scope.noteForm = item
+                    $scope.noteForm = new_item
                 })
             } else {
                 $scope.noteForm = {
@@ -100,12 +113,13 @@ angular.module('starter.controllers', ['ngCordova'])
                     prenom: '',
                     codePostale: '',
                     ville: '',
+                    adresse: '',
                     email: '',
                     portable: '',
                     divers: '',
                     manifest: '',
                     dateToCall: '',
-                    timeToCall: new Date(1970, 0, 1, 09)
+                    timeToCall: new Date(1970, 0, 1, 00)
                 };
                 NotesDataService.getManifest(function (data) {
                     $scope.noteForm.manifest = data[0].manifest;

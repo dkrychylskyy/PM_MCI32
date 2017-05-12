@@ -142,7 +142,7 @@ angular.module('starter.services', ['ngCordova'])
     .factory('ContactsService', function ($ionicPlatform, $cordovaEmailComposer, $cordovaSQLite, $cordovaFile, NotesDataService) {
 
         // disable for testing in browser
-
+        //
         // $ionicPlatform.ready(function () {
         //     initCordovaEmailComposer();
         // })

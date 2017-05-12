@@ -14,7 +14,7 @@ angular.module('starter.services', ['ngCordova'])
         }
 
         function initDatabase() {
-            $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_CONTACTS (id integer primary key, nom, prenom, codePostale, ville, email, portable, divers, manifest, dateToCall DATE, timeToCall, createdDate DATATIME)')
+            $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS T_CONTACTS (id integer primary key, nom, prenom, codePostale, ville, email, portable, divers, manifest, dateToCall DATE, timeToCall, adresse, createdDate DATATIME)')
                 .then(function (res) {
 
                 }, onErrorQuery);
@@ -45,10 +45,14 @@ angular.module('starter.services', ['ngCordova'])
         return {
             createNote: function (note) {
                 var manifest = "";
-                return $cordovaSQLite.execute(db, 'INSERT INTO T_CONTACTS (nom, prenom, codePostale, ville, email, portable, divers, manifest, dateToCall, timeToCall, createdDate) VALUES(?, ?, ?, ?, ? ,?, ?, ?, ?, ?, datetime("now", "localtime"))', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall, note.timeToCall])
+                console.log(note['timeToCall'])
+                if (note['timeToCall'] == 'Thu Jan 01 1970 00:00:00 GMT+0100 (CET)' ){
+                    note['timeToCall'] = '';
+                }
+                return $cordovaSQLite.execute(db, 'INSERT INTO T_CONTACTS (nom, prenom, codePostale, ville ,email, portable, divers, manifest, dateToCall, timeToCall, adresse, createdDate) VALUES(?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?,  datetime("now", "localtime"))', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall, note.timeToCall, note.adresse])
             },
             updateNote: function (note) {
-                return $cordovaSQLite.execute(db, 'UPDATE T_CONTACTS set nom = ?, prenom = ?, codePostale = ?, ville = ?, email = ?, portable = ?, divers = ?, manifest = ?, dateToCall = ?, timeToCall = ? where id = ?', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall, note.timeToCall, note.id])
+                return $cordovaSQLite.execute(db, 'UPDATE T_CONTACTS set nom = ?, prenom = ?, codePostale = ?, ville = ?, email = ?, portable = ?, divers = ?, manifest = ?, dateToCall = ?, timeToCall = ?, adresse = ? where id = ?', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall, note.timeToCall, note.adresse, note.id])
             },
             getAll: function (callback) {
                 $ionicPlatform.ready(function () {
@@ -66,7 +70,7 @@ angular.module('starter.services', ['ngCordova'])
 
             getContactsForCSV: function (callback) {
                 $ionicPlatform.ready(function () {
-                    $cordovaSQLite.execute(db, 'SELECT manifest AS manifestation, createdDate AS creation, nom, prenom, email, portable, ville, codePostale AS code_postal, divers, dateToCall AS date_pour_cont, timeToCall AS heure_pour_cont ' +
+                    $cordovaSQLite.execute(db, 'SELECT manifest AS manifestation, createdDate AS creation, nom, prenom, email, portable, ville, adresse, codePostale AS code_postal, divers, dateToCall AS date_pour_cont, timeToCall AS heure_pour_cont ' +
                         'FROM T_CONTACTS ORDER BY createdDate DESC, manifest ASC').then(function (results) {
                         var data = []
 
@@ -142,19 +146,19 @@ angular.module('starter.services', ['ngCordova'])
     .factory('ContactsService', function ($ionicPlatform, $cordovaEmailComposer, $cordovaSQLite, $cordovaFile, NotesDataService) {
 
         // disable for testing in browser
-
-        $ionicPlatform.ready(function () {
-            initCordovaEmailComposer();
-        })
-
-        function initCordovaEmailComposer() {
-            $cordovaEmailComposer.isAvailable().then(function () {
-                //is available
-            }, function () {
-                //not available
-                alert('Il vous faut regler boit mail');
-            })
-        }
+        //
+        // $ionicPlatform.ready(function () {
+        //     initCordovaEmailComposer();
+        // })
+        //
+        // function initCordovaEmailComposer() {
+        //     $cordovaEmailComposer.isAvailable().then(function () {
+        //         //is available
+        //     }, function () {
+        //         //not available
+        //         alert('Il vous faut regler boit mail');
+        //     })
+        // }
 
         return {
 
