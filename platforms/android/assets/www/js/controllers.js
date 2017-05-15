@@ -5,14 +5,14 @@ angular.module('starter.controllers', ['ngCordova'])
             NotesDataService.getAll(function (data) {
                 $scope.disabledButton = false;
                 $scope.itemsList = data;
-                for (i = 0; i < data.length; i++) {
-                    if (!data[i].dateToCall == '') {
-                        data[i].dateToCall = new Date(data[i].dateToCall)
-                    }
-                    if (!data[i].timeToCall == '') {
-                        data[i].timeToCall = new Date(data[i].timeToCall)
-                    }
-                }
+                // for (i = 0; i < data.length; i++) {
+                //     if (!data[i].dateToCall == '') {
+                //         data[i].dateToCall = new Date(data[i].dateToCall)
+                //     }
+                //     if (!data[i].timeToCall == '') {
+                //         data[i].timeToCall = new Date(data[i].timeToCall)
+                //     }
+                // }
                 if (data.length == 0) {
                     $scope.disabledButton = true;
                 }
@@ -88,24 +88,24 @@ angular.module('starter.controllers', ['ngCordova'])
         function initForm() {
             if ($stateParams.id) {
                 NotesDataService.getById($stateParams.id, function (item) {
-                    if (item){
-                        var new_item = {};
-                        for (field in item){
-                            if (field == 'dateToCall'){
-                                new_item[field] = new Date(item[field]);
-                                continue
-                            }
-                            if (field == 'timeToCall'){
-                                new_item[field] = new Date(item[field]);
-                                continue
-                            }
-                            new_item[field] = item[field];
-                        }
-                       for (item in new_item){
-                       }
-                    }
-                    // $scope.noteForm = item
-                    $scope.noteForm = new_item
+                    // if (item){
+                    //     var new_item = {};
+                    //     for (field in item){
+                    //         if (field == 'dateToCall'){
+                    //             new_item[field] = new Date(item[field]);
+                    //             continue
+                    //         }
+                    //         if (field == 'timeToCall'){
+                    //             new_item[field] = new Date(item[field]);
+                    //             continue
+                    //         }
+                    //         new_item[field] = item[field];
+                    //     }
+                    //    for (item in new_item){
+                    //    }
+                    // }
+                    $scope.noteForm = item
+                    // $scope.noteForm = new_item
                 })
             } else {
                 $scope.noteForm = {
@@ -119,7 +119,8 @@ angular.module('starter.controllers', ['ngCordova'])
                     divers: '',
                     manifest: '',
                     dateToCall: '',
-                    timeToCall: new Date(1970, 0, 1, 00)
+                    // timeToCall: new Date(1970, 0, 1, 00)
+                    timeToCall: ''
                 };
                 NotesDataService.getManifest(function (data) {
                     $scope.noteForm.manifest = data[0].manifest;
@@ -209,10 +210,11 @@ angular.module('starter.controllers', ['ngCordova'])
         })
     })
 
-    .controller('SliderCtrl', function ($scope, $cordovaDevice, $stateParams, $state, $ionicPlatform, $cordovaImagePicker, AddImageFromPicker, FileService, SettingsFormService, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('SliderCtrl', function ($scope, $cordovaDevice, $stateParams, $state, $ionicPlatform, $cordovaImagePicker, AddImageFromPicker, FileService, NotesDataService, SettingsFormService, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 var images = FileService.images();
+                var fildsInLS = SettingsFormService.getObject('filds');
                 $scope.numberOfSlides = images.length;
                 $scope.images = images;
                 $scope.lastImg = images[images.length - 1];
@@ -223,6 +225,77 @@ angular.module('starter.controllers', ['ngCordova'])
                     }
                 }
                 $scope.currentInvitation = SettingsFormService.get('invitation')
+                // $scope.isEmail = NotesDataService.getEmail(function (data) {
+                //     console.log(data)
+                //   if (data.isObject){
+                //       if (data[0].hasOwnProperty('email')){
+                //           if(!data[0].email == "undefined" || ){
+                //               console.log('true')
+                //               return true
+                //           } else {
+                //               console.log('false')
+                //               return false
+                //           }
+                //       } else {
+                //           return false;
+                //       }
+                //   } else {
+                //       return false
+                //   }
+                //     // $scope.noEmail.address = data[0].email;
+                // });
+
+                // init  defaults fields for contact form
+                function initFilds() {
+                    var filds = {
+                        nom: {
+                            value: true,
+                            name: 'Nom'
+                        },
+                        prenom: {
+                            value: true,
+                            name: 'Prenom'
+                        },
+                        email: {
+                            value: true,
+                            name: 'E-mail'
+                        },
+                        portable: {
+                            value: true,
+                            name: 'Portable'
+                        },
+                        adresse: {
+                            value: true,
+                            name: 'Adresse'
+                        },
+                        CP: {
+                            value: true,
+                            name: 'Code Postal'
+                        },
+                        ville: {
+                            value: true,
+                            name: 'Ville'
+                        },
+                        divers: {
+                            value: true,
+                            name: 'Divers'
+                        },
+                        date: {
+                            value: true,
+                            name: 'Date'
+                        },
+                        heure: {
+                            value: true,
+                            name: 'Heure'
+                        }
+                    }
+                    return filds
+                }
+
+                if (!fildsInLS){
+                    var defaultFields = initFilds();
+                    SettingsFormService.setObject('filds', defaultFields)
+                }
             })
         })
         ionicMaterialInk.displayEffect();
@@ -267,63 +340,58 @@ angular.module('starter.controllers', ['ngCordova'])
 
     .controller('ParamsFormCtrl', function ($scope, SettingsFormService) {
 
-        var fildsInLS = SettingsFormService.getObject('filds');
-            console.log('local storage',fildsInLS);
-        if (!fildsInLS){
-            $scope.filds = initFilds();
-            SettingsFormService.setObject('filds', $scope.filds)
-            console.log(fildsInLS)
-        } else {
+        // var fildsInLS = SettingsFormService.getObject('filds');
+        // if (!fildsInLS){
+        //     $scope.filds = initFilds();
+        //     SettingsFormService.setObject('filds', $scope.filds)
+        // } else {
             $scope.filds = SettingsFormService.getObject('filds')
-        }
-
-
-
-        function initFilds() {
-            var filds = {
-                nom: {
-                    value: true,
-                    name: 'Nom'
-                },
-                prenom: {
-                    value: true,
-                    name: 'Prenom'
-                },
-                email: {
-                    value: true,
-                    name: 'E-mail'
-                },
-                portable: {
-                    value: true,
-                    name: 'Portable'
-                },
-                adresse: {
-                    value: true,
-                    name: 'Adresse'
-                },
-                CP: {
-                    value: true,
-                    name: 'Code Postal'
-                },
-                ville: {
-                    value: true,
-                    name: 'Ville'
-                },
-                divers: {
-                    value: true,
-                    name: 'Divers'
-                },
-                date: {
-                    value: true,
-                    name: 'Date'
-                },
-                heure: {
-                    value: true,
-                    name: 'Heure'
-                }
-            }
-            return filds
-        }
+        // }
+        // function initFilds() {
+        //     var filds = {
+        //         nom: {
+        //             value: true,
+        //             name: 'Nom'
+        //         },
+        //         prenom: {
+        //             value: true,
+        //             name: 'Prenom'
+        //         },
+        //         email: {
+        //             value: true,
+        //             name: 'E-mail'
+        //         },
+        //         portable: {
+        //             value: true,
+        //             name: 'Portable'
+        //         },
+        //         adresse: {
+        //             value: true,
+        //             name: 'Adresse'
+        //         },
+        //         CP: {
+        //             value: true,
+        //             name: 'Code Postal'
+        //         },
+        //         ville: {
+        //             value: true,
+        //             name: 'Ville'
+        //         },
+        //         divers: {
+        //             value: true,
+        //             name: 'Divers'
+        //         },
+        //         date: {
+        //             value: true,
+        //             name: 'Date'
+        //         },
+        //         heure: {
+        //             value: true,
+        //             name: 'Heure'
+        //         }
+        //     }
+        //     return filds
+        // }
 
         $scope.clearLocalStorage = function () {
             localStorage.clear()

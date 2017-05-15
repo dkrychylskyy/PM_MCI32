@@ -4,15 +4,59 @@
         <ion-slides options="{paginationClickable:true, speed: 600, initialSlide: 0}" slider="swiper"
                     style="background-color:#262626">
             <ion-slide-page ng-show="numberOfSlides < 1" style="background-color: #ffffff">
-                <div class="padding-top">
-                    <div class="padding-top text-center">
-                        <h2 class="padding-top">Aucune image</h2>
-                        <h3>Merci de sélectionner des images</h3>
-                        <button class="button button-raised button-energized-900 padding-bottom" ui-sref="addImages">
-                            Sélectionner
-                        </button>
+                <div class="list">
+                    <div class="item item-divider-android">
+                        <div class="row" ng-hide="hideEmail">
+                            <div class="col">
+                                E-mail n'est pas rempli.
+                            </div>
+                            <div class="col">
+                                <a ui-sref="emailParams">Remplir<i class="icon-right ion-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Manifestation n'est pas rempli.
+                            </div>
+                            <div class="col">
+                                <a ui-sref="manifestParams">Remplir <i class="icon-right ion-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Invitation n'est pas rempli.
+                            </div>
+                            <div class="col">
+                                <a ui-sref="invitParams">Remplir <i class="icon-right ion-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Remerciement n'est pas rempli.
+                            </div>
+                            <div class="col">
+                                <a ui-sref="remerciParams">Remplir <i class="icon-right ion-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Merci de sélectionner des images
+                            </div>
+                            <div class="col">
+                                <a ui-sref="addImages">Sélectionner <i class="icon-right ion-chevron-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!--<div class="padding-top">-->
+                <!--<div class="padding-top text-center">-->
+                <!--<h2 class="padding-top">Aucune image</h2>-->
+                <!--<h3>Merci de sélectionner des images</h3>-->
+                <!--<button class="button button-raised button-energized-900 padding-bottom" ui-sref="addImages">-->
+                <!--Sélectionner-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--</div>-->
                 <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-dark"><i
                         class="icon ion-ios-gear-outline"></i></button>
             </ion-slide-page>
@@ -29,7 +73,8 @@
                         </button>
                     </div>
                 </div>
-                <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-light" style="opacity: 0.5"><i
+                <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-light"
+                        style="opacity: 0.5"><i
                         class="icon ion-ios-gear-outline"></i></button>
             </ion-slide-page>
         </ion-slides>

@@ -45,13 +45,19 @@ angular.module('starter.services', ['ngCordova'])
         return {
             createNote: function (note) {
                 var manifest = "";
-                console.log(note['timeToCall'])
-                if (note['timeToCall'] == 'Thu Jan 01 1970 00:00:00 GMT+0100 (CET)' ){
-                    note['timeToCall'] = '';
-                }
+                // if (note['timeToCall'] == 'Thu Jan 01 1970 00:00:00 GMT+0100 (CET)' ){
+                //     note['timeToCall'] = '';
+                // }
+                // if (note['timeToCall']){
+                //     note['timeToCall'] = new Date('Thu Jan 01 1970 '+ note['timeToCall'] + ':00');
+                // }
                 return $cordovaSQLite.execute(db, 'INSERT INTO T_CONTACTS (nom, prenom, codePostale, ville ,email, portable, divers, manifest, dateToCall, timeToCall, adresse, createdDate) VALUES(?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?,  datetime("now", "localtime"))', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall, note.timeToCall, note.adresse])
             },
             updateNote: function (note) {
+                console.log('time in update',note['timeToCall'])
+                // if (note['timeToCall']){
+                //     note['timeToCall'] = new Date('Thu Jan 01 1970 '+ note['timeToCall'] + ":00");
+                // }
                 return $cordovaSQLite.execute(db, 'UPDATE T_CONTACTS set nom = ?, prenom = ?, codePostale = ?, ville = ?, email = ?, portable = ?, divers = ?, manifest = ?, dateToCall = ?, timeToCall = ?, adresse = ? where id = ?', [note.nom, note.prenom, note.codePostale, note.ville, note.email, note.portable, note.divers, note.manifest, note.dateToCall, note.timeToCall, note.adresse, note.id])
             },
             getAll: function (callback) {
