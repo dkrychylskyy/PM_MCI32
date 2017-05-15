@@ -69,20 +69,17 @@ angular.module('starter.controllers', ['ngCordova'])
 
         function hideFilds() {
             var getfields = SettingsFormService.getObject('filds');
-            for (var key in getfields){
+            for (var key in getfields) {
                 if (!getfields.hasOwnProperty(key)) continue;
                 var obj = getfields[key];
-                for (var prop in obj){
+                for (var prop in obj) {
                     if (!obj.hasOwnProperty(prop)) continue;
-                    // console.log('key =',key);
-                    if (prop == 'value'){
-                         var value = obj[prop];
+                    if (prop == 'value') {
+                        var value = obj[prop];
                     }
-                    $scope['hide'+ key] = value;
+                    $scope['hide' + key] = value;
                 }
             }
-            console.log($scope)
-
         }
 
         function initForm() {
@@ -172,11 +169,19 @@ angular.module('starter.controllers', ['ngCordova'])
     .controller('ReglagesCtrl', function ($scope, $state, NotesDataService, $cordovaFile, $ionicPlatform, $ionicPopup, ContactsService, SettingsFormService, $cordovaImagePicker, $cordovaEmailComposer, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
-                $scope.formEmail = NotesDataService.getEmail(function (data) {
-                    $scope.currentEmail = data[0].email;
+                $scope.currentEmail = NotesDataService.getEmail(function (data) {
+                    if (data[0].email != "undefined") {
+                        $scope.currentEmail = data[0].email;
+                    } else {
+                        $scope.currentEmail = "";
+                    }
                 });
                 $scope.formManifest = NotesDataService.getManifest(function (data) {
-                    $scope.currentManifest = data[0].manifest;
+                    if (data[0].manifest != "undefined") {
+                        $scope.currentManifest = data[0].manifest;
+                    } else {
+                        $scope.currentManifest = "";
+                    }
                 });
                 NotesDataService.getAll(function (data) {
                     $scope.numberOfContacts = data.length
@@ -213,6 +218,17 @@ angular.module('starter.controllers', ['ngCordova'])
     .controller('SliderCtrl', function ($scope, $cordovaDevice, $stateParams, $state, $ionicPlatform, $cordovaImagePicker, AddImageFromPicker, FileService, NotesDataService, SettingsFormService, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
+                function checkInvit() {
+                    if (!SettingsFormService.get('invitation') || SettingsFormService.get('invitation') == '') {
+                        console.log('INVITATION', SettingsFormService.get('invitation'))
+                        return true;
+                    }
+                }
+                function checkRemerci() {
+                    if (!SettingsFormService.get('remerci') || SettingsFormService.get('remerci') == '') {
+                        return true;
+                    }
+                }
                 var images = FileService.images();
                 var fildsInLS = SettingsFormService.getObject('filds');
                 $scope.numberOfSlides = images.length;
@@ -225,6 +241,29 @@ angular.module('starter.controllers', ['ngCordova'])
                     }
                 };
                 $scope.currentInvitation = SettingsFormService.get('invitation');
+                $scope.showInfoManifest = NotesDataService.getManifest(function (data) {
+                    console.log(d = data);
+                    if (data.length > 0){
+                        if (data[0].manifest == null || false || data[0] == undefined || data[0].manifest == "" || data[0].manifest == "undefined") {
+                            $scope.showInfoManifest = true
+                        } else {
+                            $scope.showInfoManifest = false
+                        }
+                    } else {
+                        $scope.showInfoManifest = true
+                    }
+                });
+                $scope.showInfoEmail = NotesDataService.getEmail(function (data) {
+                    if (data.length > 0) {
+                        if (data[0].email == null ||data[0] == undefined || data[0].email == "" || data[0].email == "undefined") {
+                            $scope.showInfoEmail = true
+                        } else {
+                            $scope.showInfoEmail = false
+                        }
+                    }
+                });
+                $scope.showInfoInvit = checkInvit();
+                $scope.showInfoRemerci = checkRemerci();
 
                 // init  defaults fields for contact form
                 function initFilds() {
@@ -273,7 +312,7 @@ angular.module('starter.controllers', ['ngCordova'])
                     return filds
                 }
 
-                if (!fildsInLS){
+                if (!fildsInLS) {
                     var defaultFields = initFilds();
                     SettingsFormService.setObject('filds', defaultFields)
                 }
@@ -286,11 +325,14 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 $scope.formEmail = NotesDataService.getEmail(function (data) {
-                    $scope.formEmail.address = data[0].email;
+                    if (data[0].email != "undefined") {
+                        $scope.formEmail.address = data[0].email;
+                    } else {
+                        $scope.formEmail.address = "";
+                    }
                 });
 
                 $scope.formEmail = {address: ''};
-
                 $scope.addEmail = function () {
                     NotesDataService.createEmail($scope.formEmail.address);
                     $state.go('reglages');
@@ -304,14 +346,17 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.$on('$ionicView.enter', function () {
             $ionicPlatform.ready(function () {
                 $scope.formManifest = NotesDataService.getManifest(function (data) {
-                    $scope.formManifest.text = data[0].manifest;
+                    if (data[0].manifest != "undefined") {
+                        $scope.formManifest.text = data[0].manifest;
+                    } else {
+                        $scope.formManifest.text = "";
+                    }
                 });
 
                 $scope.formManifest = {text: ''};
 
                 $scope.addManifest = function () {
                     NotesDataService.createManifest($scope.formManifest.text);
-                    console.log($scope.formManifest.text);
                     $state.go('reglages');
 
                 }
@@ -326,7 +371,7 @@ angular.module('starter.controllers', ['ngCordova'])
         //     $scope.filds = initFilds();
         //     SettingsFormService.setObject('filds', $scope.filds)
         // } else {
-            $scope.filds = SettingsFormService.getObject('filds')
+        $scope.filds = SettingsFormService.getObject('filds')
         // }
         // function initFilds() {
         //     var filds = {
@@ -379,14 +424,13 @@ angular.module('starter.controllers', ['ngCordova'])
         }
 
         $scope.change = function () {
-         console.log('$scope.filds', $scope.filds)
-         SettingsFormService.setObject('filds', $scope.filds)
+            SettingsFormService.setObject('filds', $scope.filds)
         }
     })
-    
+
     .controller('ParamsInvitCtrl', function ($scope, $state, SettingsFormService) {
         $scope.formInvitation = {text: ''};
-        $scope.formInvitation.text = SettingsFormService.get('invitation')
+        $scope.formInvitation.text = SettingsFormService.get('invitation');
         $scope.addInvitation = function () {
             SettingsFormService.set('invitation', $scope.formInvitation.text);
             $state.go('reglages');
@@ -394,10 +438,10 @@ angular.module('starter.controllers', ['ngCordova'])
     })
 
     .controller('ParamsRemerciCtrl', function ($scope, $state, SettingsFormService) {
-    $scope.formRemerci = {text: ''};
-    $scope.formRemerci.text = SettingsFormService.get('remerci')
-    $scope.addRemerci = function () {
-        SettingsFormService.set('remerci', $scope.formRemerci.text);
-        $state.go('reglages');
-    }
-})
+        $scope.formRemerci = {text: ''};
+        $scope.formRemerci.text = SettingsFormService.get('remerci')
+        $scope.addRemerci = function () {
+            SettingsFormService.set('remerci', $scope.formRemerci.text);
+            $state.go('reglages');
+        }
+    })
