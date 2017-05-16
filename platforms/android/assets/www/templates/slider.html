@@ -4,50 +4,41 @@
         <ion-slides options="{paginationClickable:true, speed: 600, initialSlide: 0}" slider="swiper"
                     style="background-color:#262626">
             <ion-slide-page ng-show="numberOfSlides < 1" style="background-color: #ffffff">
-                <div class="card">
-                    <div class="item item-text-wrap">
-                        <div class="list">
-                            <div class="item item-divider-android">
-                                <div class="row" ng-show="showInfoEmail">
-                                    <div class="col">
-                                        E-mail n'est pas rempli.
-                                    </div>
-                                    <div class="col">
-                                        <a ui-sref="emailParams">Remplir<i class="icon-right ion-chevron-right"></i></a>
-                                    </div>
-                                </div>
-                                <div class="row" ng-show="showInfoManifest">
-                                    <div class="col">
-                                        Manifestation n'est pas rempli.
-                                    </div>
-                                    <div class="col">
-                                        <a ui-sref="manifestParams">Remplir <i class="icon-right ion-chevron-right"></i></a>
-                                    </div>
-                                </div>
-                                <div class="row" ng-show="showInfoInvit">
-                                    <div class="col">
-                                        Invitation n'est pas rempli.
-                                    </div>
-                                    <div class="col">
-                                        <a ui-sref="invitParams">Remplir <i class="icon-right ion-chevron-right"></i></a>
-                                    </div>
-                                </div>
-                                <div class="row" ng-show="showInfoRemerci">
-                                    <div class="col">
-                                        Remerciement n'est pas rempli.
-                                    </div>
-                                    <div class="col">
-                                        <a ui-sref="remerciParams">Remplir <i class="icon-right ion-chevron-right"></i></a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        Merci de sélectionner des images
-                                    </div>
-                                    <div class="col">
-                                        <a ui-sref="addImages">Sélectionner <i class="icon-right ion-chevron-right"></i></a>
-                                    </div>
-                                </div>
+                <div class="list">
+                    <div class="item item-divider-android">
+                        <div class="row" ng-show="showInfoEmail">
+                            <div class="col mci-bord-bottom">
+                                E-mail n'est pas rempli.
+                                <a ui-sref="emailParams"><i class="icon-right ion-chevron-right pull-right"></i><span
+                                        class="pull-right">Remplir</span></a>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="showInfoManifest">
+                            <div class="col mci-bord-bottom">
+                                Manifestation n'est pas rempli.
+                                <a ui-sref="manifestParams"><i class="icon-right ion-chevron-right pull-right"></i><span
+                                        class="pull-right">Remplir</span></a>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="showInfoInvit">
+                            <div class="col mci-bord-bottom">
+                                Invitation n'est pas rempli.
+                                <a ui-sref="invitParams"><i class="icon-right ion-chevron-right pull-right"></i><span
+                                        class="pull-right">Remplir</span></a>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="showInfoRemerci">
+                            <div class="col mci-bord-bottom">
+                                Remerciement n'est pas rempli.
+                                <a ui-sref="remerciParams"><i class="icon-right ion-chevron-right pull-right"></i><span
+                                        class="pull-right">Remplir</span></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mci-bord-bottom">
+                                Merci de sélectionner des images
+                                <a ui-sref="addImages"><i class="icon-right ion-chevron-right pull-right"></i><span
+                                        class="pull-right">Sélectionner</span></a>
                             </div>
                         </div>
                     </div>

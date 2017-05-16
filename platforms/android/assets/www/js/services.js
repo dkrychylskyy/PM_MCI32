@@ -82,11 +82,13 @@ angular.module('starter.services', ['ngCordova'])
 
                         for (i = 0, max = results.rows.length; i < max; i++) {
                             var myObj = results.rows.item(i)
-                            if (myObj.date_pour_cont == ''){
-                                myObj.date_pour_cont = $filter('date')(new Date(myObj.date_pour_cont), "dd-MM-yyyy")
+                            if (myObj.date_pour_cont == ""){
+                                // myObj.date_pour_cont = $filter('date')(new Date(myObj.date_pour_cont), "dd-MM-yyyy")
+                                myObj.date_pour_cont = "";
                             }
-                            if (myObj.heure_pour_cont == ''){
-                                myObj.heure_pour_cont = $filter('date')(new Date(myObj.heure_pour_cont), "HH:mm")
+                            if (myObj.heure_pour_cont == ""){
+                                // myObj.heure_pour_cont = $filter('date')(new Date(myObj.heure_pour_cont), "HH:mm")
+                                myObj.heure_pour_cont = "";
                             }
 
                             data.push(myObj)

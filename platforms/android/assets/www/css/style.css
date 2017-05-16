@@ -34,6 +34,16 @@
 .transbox button {
     margin: 2em;
 }
+
+.mci-bord-bottom {
+    border-bottom: solid 1px #cccccc;
+    font-size: 1.2em;
+}
+
+.mci-bord-bottom span {
+    margin-right: 1em;
+}
+
 /*END SLIDER*/
 
 

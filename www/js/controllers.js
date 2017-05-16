@@ -254,12 +254,15 @@ angular.module('starter.controllers', ['ngCordova'])
                     }
                 });
                 $scope.showInfoEmail = NotesDataService.getEmail(function (data) {
+                    console.log('enail data', data)
                     if (data.length > 0) {
                         if (data[0].email == null ||data[0] == undefined || data[0].email == "" || data[0].email == "undefined") {
                             $scope.showInfoEmail = true
                         } else {
                             $scope.showInfoEmail = false
                         }
+                    } else {
+                        $scope.showInfoEmail = true
                     }
                 });
                 $scope.showInfoInvit = checkInvit();
