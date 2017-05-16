@@ -3,7 +3,7 @@
         <!--//////////////if no images//////////////////-->
         <ion-slides options="{paginationClickable:true, speed: 600, initialSlide: 0}" slider="swiper"
                     style="background-color:#262626">
-            <ion-slide-page ng-show="numberOfSlides < 1" style="background-color: #ffffff">
+            <ion-slide-page ng-show="numberOfSlides < 1" style="background-color: #ffffff" class="mci-slide-1st">
                 <div class="list">
                     <div class="item item-divider-android">
                         <div class="row" ng-show="showInfoEmail">
@@ -43,15 +43,6 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="padding-top">-->
-                <!--<div class="padding-top text-center">-->
-                <!--<h2 class="padding-top">Aucune image</h2>-->
-                <!--<h3>Merci de sélectionner des images</h3>-->
-                <!--<button class="button button-raised button-energized-900 padding-bottom" ui-sref="addImages">-->
-                <!--Sélectionner-->
-                <!--</button>-->
-                <!--</div>-->
-                <!--</div>-->
                 <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-dark"><i
                         class="icon ion-ios-gear-outline"></i></button>
             </ion-slide-page>
@@ -61,11 +52,18 @@
             </ion-slide-page>
             <ion-slide-page ng-show="numberOfSlides >= 1">
                 <img ng-src="{{lastImg}}" alt="test" style="width: 100%; height: auto">
-                <div class="transbox">
-                    <div class="text-center">
-                        <h2>{{currentInvitation}}</h2>
-                        <button class="button button-raised button-balanced padding-bottom" ui-sref="form">Oui
-                        </button>
+                <!--<img src="../img/for_test/img1.jpg" alt="test" style="width: 100%; height: auto">-->
+                <div>
+                    <div class="row row-center" style="position: absolute; top: 50%;  margin-top  : -100px;">
+                        <div class="col"></div>
+                        <div class="col col-center text-center" style="background-color: #FFFFFF;">
+                            <h5>
+                                {{currentInvitation}}
+                                <!--text text text text text text text text text texttext text text text texttext text text text texttext text text text texttext text text text texttext text text text texttext text text text texttext text text text texttext text text text text-->
+                            </h5>
+                            <button class="button button-balanced button-flat" ui-sref="form">Oui</button>
+                        </div>
+                        <div class="col"></div>
                     </div>
                 </div>
                 <button ui-sref="reglages" class="button button-fab button-fab-bottom-right button-light"

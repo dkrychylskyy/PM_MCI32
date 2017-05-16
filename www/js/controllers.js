@@ -242,7 +242,6 @@ angular.module('starter.controllers', ['ngCordova'])
                 };
                 $scope.currentInvitation = SettingsFormService.get('invitation');
                 $scope.showInfoManifest = NotesDataService.getManifest(function (data) {
-                    console.log(d = data);
                     if (data.length > 0){
                         if (data[0].manifest == null || false || data[0] == undefined || data[0].manifest == "" || data[0].manifest == "undefined") {
                             $scope.showInfoManifest = true
