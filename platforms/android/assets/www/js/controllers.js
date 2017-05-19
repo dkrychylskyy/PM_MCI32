@@ -220,29 +220,34 @@ angular.module('starter.controllers', ['ngCordova'])
             $ionicPlatform.ready(function () {
                 function checkInvit() {
                     if (!SettingsFormService.get('invitation') || SettingsFormService.get('invitation') == '') {
-                        console.log('INVITATION', SettingsFormService.get('invitation'))
                         return true;
                     }
                 }
+
                 function checkRemerci() {
                     if (!SettingsFormService.get('remerci') || SettingsFormService.get('remerci') == '') {
                         return true;
                     }
                 }
+
                 var images = FileService.images();
                 var fildsInLS = SettingsFormService.getObject('filds');
                 $scope.numberOfSlides = images.length;
                 $scope.images = images;
                 $scope.lastImg = images[images.length - 1];
                 $scope.$apply();
-                $scope.sliderOptions = {
-                    onInit: function (swiper) {
-                        $scope.swiper = swiper;
-                    }
+                $scope.$on("$ionicSlides.sliderInitialized", function(event, data){
+                    // data.slider is the instance of Swiper
+                    $scope.slider = data.slider;
+                });
+                $scope.options = {
+                    loop: false,
+                    effect: 'cube',
+                    speed: 600
                 };
                 $scope.currentInvitation = SettingsFormService.get('invitation');
                 $scope.showInfoManifest = NotesDataService.getManifest(function (data) {
-                    if (data.length > 0){
+                    if (data.length > 0) {
                         if (data[0].manifest == null || false || data[0] == undefined || data[0].manifest == "" || data[0].manifest == "undefined") {
                             $scope.showInfoManifest = true
                         } else {
@@ -253,9 +258,8 @@ angular.module('starter.controllers', ['ngCordova'])
                     }
                 });
                 $scope.showInfoEmail = NotesDataService.getEmail(function (data) {
-                    console.log('enail data', data)
                     if (data.length > 0) {
-                        if (data[0].email == null ||data[0] == undefined || data[0].email == "" || data[0].email == "undefined") {
+                        if (data[0].email == null || data[0] == undefined || data[0].email == "" || data[0].email == "undefined") {
                             $scope.showInfoEmail = true
                         } else {
                             $scope.showInfoEmail = false

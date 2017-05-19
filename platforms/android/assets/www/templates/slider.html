@@ -1,8 +1,7 @@
 <ion-view hide-nav-bar="true" cache-view="false">
-    <ion-content>
+    <ion-content scroll="false">
         <!--//////////////if no images//////////////////-->
-        <ion-slides options="{paginationClickable:true, speed: 600, initialSlide: 0}" slider="swiper"
-                    style="background-color:#262626">
+        <ion-slides options="{speed: 500, initialSlide: 0}" slider="data.slider" style="background-color:#262626">
             <ion-slide-page ng-show="numberOfSlides < 1" style="background-color: #ffffff" class="mci-slide-1st">
                 <div class="list">
                     <div class="item item-divider-android">
